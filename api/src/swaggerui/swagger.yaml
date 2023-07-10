@@ -1,0 +1,870 @@
+openapi: 3.0.0
+info:
+  description: Cyclerank API documentation that follows the OpenAPI standard.
+  # TODO: define version
+  version: 0.1.0
+  title: Cyclerank API
+  termsOfService:
+  contact:
+    name: Cyclerank developers
+    email: luca.cavalcanti@studenti.unitn.it, cristian.consonni@acm.org, me@martinbrugnara.it, david.laniado@eurecat.org, alberto.montresor@unitn.it
+  #TODO: add license
+  license:
+    name:
+    url:
+servers:
+# TODO: update url
+- url: http://192.168.184.52:5001
+# - url: http://127.0.0.1:8080
+tags:
+- name: algorithms
+  description: The various algorithms that can be used
+  externalDocs:
+    description: Find out more about cyclerank
+    url: https://consonni.dev/publications/files/cyclerank.pdf
+- name: utilities
+  description: Various functionalities to handle the queries
+# TODO: decide if https is used
+schemes:
+- https
+- http
+paths:
+  /v0/cyclerank:
+    post:
+      tags:
+      - algorithms
+      summary: Run the cyclerank algorithm
+      description: Run the cyclerank algorithm. Possible parameters are file, source, maxloop (all required), debug, verbose, scoring_function (optional)
+
+      requestBody:
+        description: Query form of the cyclerank algorithm
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/definitions/QueryForm_Cyclerank"
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is POST
+        400:
+          description: Error parsing POST request
+        422:
+          description: POST form is unprocessable, some fields do not respect the given constraints
+          content:
+            application/json:
+              schema:
+                name: error
+                type: object
+                description: Field(s) in which there was an error and reason for said error
+                properties:
+                  file:
+                    type: string
+                  maxloop:
+                    type: string
+                  debug:
+                    type: string
+                  verbose:
+                    type: string
+                  scoring_function:
+                    type: string
+                example:
+                  scoring_function: "not a scoring function"
+        500:
+          description: Internal server error, couldn't allocate the necessary output files
+        200:
+          description: Query started correctly
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/QueryId"
+
+  /v0/pr:
+    post:
+      tags:
+      - algorithms
+      summary: Run the pagerank algorithm
+      description: Run the pagerank algorithm. Possible parameters are file (required), alpha, debug, verbose (optional)
+
+      requestBody:
+        description: Query form of the pagerank algorithm
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/definitions/QueryForm_Pr"
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is POST
+        400:
+          description: Error parsing POST request
+        422:
+          description: POST form is unprocessable, some fields do not respect the given constraints
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/UnprocessableForm_Pr"
+        500:
+          description: Internal server error, couldn't allocate the necessary output files
+        200:
+          description: Query started correctly
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/QueryId"
+
+  /v0/ssppr:
+    post:
+      tags:
+      - algorithms
+      summary: Run the single source pagerank algorithm
+      description: Run the single source pagerank algorithm. Possible parameters are file, source (required), alpha, debug, verbose (optional)
+
+      requestBody:
+        description: Query form of the single source pagerank algorithm
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/definitions/QueryForm_Ssppr"
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is POST
+        400:
+          description: Error parsing POST request
+        422:
+          description: POST form is unprocessable, some fields do not respect the given constraints
+          content:
+            application/json:
+              schema:
+              $ref: "#/definitions/UnprocessableForm_Ssppr"
+        500:
+          description: Internal server error, couldn't allocate the necessary output files
+        200:
+          description: Query started correctly
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/QueryId"
+
+  /v0/2dr:
+    post:
+      tags:
+      - algorithms
+      summary: Run the 2dRank algorithm
+      description: Run the 2dRank algorithm. Possible parameters are file (required), alpha, debug, verbose (optional)
+
+      requestBody:
+        description: Query form of the 2dRank algorithm
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/definitions/QueryForm_Pr"
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is POST
+        400:
+          description: Error parsing POST request
+        422:
+          description: POST form is unprocessable, some fields do not respect the given constraints
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/UnprocessableForm_Pr"
+        500:
+          description: Internal server error, couldn't allocate the necessary output files
+        200:
+          description: Query started correctly
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/QueryId"
+
+  /v0/2drp:
+    post:
+      tags:
+      - algorithms
+      summary: Run the single source 2dRank algorithm
+      description: Run the single source 2dRank algorithm. Possible parameters are file, source (required), alpha, debug, verbose (optional)
+
+      requestBody:
+        description: Query form of the single source 2dRank algorithm
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/definitions/QueryForm_Ssppr"
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is POST
+        400:
+          description: Error parsing POST request
+        422:
+          description: POST form is unprocessable, some fields do not respect the given constraints
+          content:
+            application/json:
+              schema:
+              $ref: "#/definitions/UnprocessableForm_Ssppr"
+        500:
+          description: Internal server error, couldn't allocate the necessary output files
+        200:
+          description: Query started correctly
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/QueryId"
+
+  /v0/cheir:
+    post:
+      tags:
+      - algorithms
+      summary: Run the CheiRank algorithm
+      description: Run the CheiRank algorithm. Possible parameters are file (required), alpha, debug, verbose (optional)
+
+      requestBody:
+        description: Query form of the CheiRank algorithm
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/definitions/QueryForm_Pr"
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is POST
+        400:
+          description: Error parsing POST request
+        422:
+          description: POST form is unprocessable, some fields do not respect the given constraints
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/UnprocessableForm_Pr"
+        500:
+          description: Internal server error, couldn't allocate the necessary output files
+        200:
+          description: Query started correctly
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/QueryId"
+
+  /v0/cheirp:
+    post:
+      tags:
+      - algorithms
+      summary: Run the single source CheiRank algorithm
+      description: Run the single source CheiRank algorithm. Possible parameters are file, source (required), alpha, debug, verbose (optional)
+
+      requestBody:
+        description: Query form of the single source CheiRank algorithm
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/definitions/QueryForm_Ssppr"
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is POST
+        400:
+          description: Error parsing POST request
+        422:
+          description: POST form is unprocessable, some fields do not respect the given constraints
+          content:
+            application/json:
+              schema:
+              $ref: "#/definitions/UnprocessableForm_Ssppr"
+        500:
+          description: Internal server error, couldn't allocate the necessary output files
+        200:
+          description: Query started correctly
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/QueryId"
+
+  /v0/subgraph:
+    post:
+      tags:
+      - algorithms
+      summary: Run the SubgraphGenerator algorithm
+      description: |
+        Run the SubgraphGenerator algorithm to generate the subgraph of a dataset, given a query to determine the subgraph's nodes.<br>
+        Possible parameters are file, query (required), debug, verbose, maxnodes (optional)
+
+      requestBody:
+        description: Query form of the SubgraphGenerator algorithm
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/definitions/QueryForm_Subgr"
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is POST
+        400:
+          description: Error parsing POST request
+        422:
+          description: POST form is unprocessable, some fields do not respect the given constraints
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/UnprocessableForm_Subgr"
+        500:
+          description: Internal server error, couldn't allocate the necessary output files
+        200:
+          description: Query started correctly
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/QueryId"
+
+
+  /v0/output:
+    get:
+      tags:
+      - utilities
+      summary: Parse the output of a given query
+      description: Given a correct query id, returns a json with the output given by the algorithm run in the query. If the json is empty the algorithm did not complete its full execution
+
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: "e1ec44af-b8bd-437f-ac50-84e35c890972"
+          description: the query id of which the output is needed
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is GET
+        400:
+          description: Error parsing GET request
+        422:
+          description: "GET form is unprocessable: id field is missing, not parsable by UUID standards or non existent in query history"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/IdError"
+        500:
+          description: "Internal server error: server couldn't find or open query output files, or couldn't parse the output file's contents"
+        200:
+          description: Results parsed
+          content:
+            application/json:
+              schema:
+                task:
+                  type: string
+                  format: uuid
+                name:
+                  type: string
+                params:
+                  type: string
+                ranking:
+                  schema:
+                    $ref: "#definitions/QueryResults"
+                example:
+                  {"jobid":"e1993577-9b2b-4a81-9980-d0c62293abc8","task":"5c448d29-bebb-489d-baca-d34afcd3c62a","name":"5c448d29-bebb-489d-baca-d34afcd3c62a_e1993577-9b2b-4a81-9980-d0c62293abc8.csv","params":{"algorithm":"Cyclerank","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxloop":"3","scoring_function":"exp","source":"Internet"},"ranking":[{"id":9120,"score":4.7045050185,"label":"Internet"},{"id":8567,"score":0.6332059669,"label":"History of the Internet"},{"id":9739,"score":0.4340576934,"label":"Internet protocol suite"},{"id":9611,"score":0.3842706251,"label":"Internet Engineering Task Force"},{"id":9246,"score":0.3344835567,"label":"Internet Standard"},{"id":29314,"score":0.2846964883,"label":"Public switched telephone network"},{"id":9153,"score":0.23490942,"label":"Internet troll"},{"id":22163,"score":0.1991482735,"label":"1986"},{"id":21974,"score":0.1493612051,"label":"20th century"},{"id":9507,"score":0.1353352832,"label":"Internet humor"},{"id":8255,"score":0.0995741367,"label":"HTML"},{"id":1975,"score":0.0497870684,"label":"Bulletin board system"}]}
+  
+  /v0/outputSubgraph:
+    get:
+      tags:
+      - utilities
+      summary: Parse the output subgraph of a given query
+      description: Given a correct id (of a subgraph parsing request), returns a json with the output subgraph given by the algorithm run in the chosen query.
+
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: "e1ec44af-b8bd-437f-ac50-84e35c890972"
+          description: the query id of the subgraph parsing task
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is GET
+        400:
+          description: Error parsing GET request
+        422:
+          description: "GET form is unprocessable: id field is missing, not parsable by UUID standards or non existent in query history"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/IdError"
+        500:
+          description: "Internal server error: server couldn't find or open query output files, or couldn't parse the output file's contents"
+        200:
+          description: Results parsed
+          content:
+            application/json:
+              schema:
+                name: querySubgraphResults
+                type: object
+                properties:
+                  task:
+                    type: string
+                    format: uuid
+                  name:
+                    type: string
+                  query_task:
+                    type: string
+                  maxnodes:
+                    type: string
+                  nodes:
+                    schema:
+                      $ref: "#definitions/QueryResults"
+                  edges:
+                    schema:
+                      $ref: "#definitions/SubgraphEdges"
+                example:
+                  {"task":"e5663eda-ab17-43d4-9543-c2e203c70d60","name":"e5663eda-ab17-43d4-9543-c2e203c70d60.csv","query_task":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv","maxnodes":"25","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"},"nodes":[{"id":29536,"score":0.0057751671,"label":"United States"},{"id":21974,"score":0.0026185309,"label":"20th century"},{"id":32153,"score":0.0026104417,"label":"19th century"},{"id":32344,"score":0.0025403516,"label":"Telecommunication"},{"id":21264,"score":0.0024329597,"label":"World War II"},{"id":7374,"score":0.0023782984,"label":"Germany"},{"id":5695,"score":0.0022301014,"label":"England"},{"id":20477,"score":0.0022042125,"label":"United Kingdom"},{"id":5641,"score":0.0020935639,"label":"Europe"},{"id":24232,"score":0.0019215353,"label":"Federal Standard 1037C"},{"id":20427,"score":0.0017326588,"label":"United States Constitution"},{"id":21984,"score":0.0016026871,"label":"18th century"},{"id":29643,"score":0.0015117319,"label":"Africa"},{"id":9798,"score":0.0014234953,"label":"Japan"},{"id":17317,"score":0.0013901225,"label":"Soviet Union"},{"id":21971,"score":0.0013562602,"label":"1970s"},{"id":21963,"score":0.0013460545,"label":"1960s"},{"id":29612,"score":0.0013392196,"label":"Canada"},{"id":13549,"score":0.00133413,"label":"North America"},{"id":9115,"score":0.0013313154,"label":"Italy"},{"id":21972,"score":0.0013059246,"label":"1990s"},{"id":17251,"score":0.0012989393,"label":"Spain"},{"id":160,"score":0.0012870038,"label":"Asia"},{"id":21973,"score":0.0012790315,"label":"1980s"},{"id":29581,"score":0.0012781682,"label":"Australia"}],"edges":[{"from":160,"to":29643},{"from":160,"to":5641},{"from":5641,"to":29643},{"from":5641,"to":160},{"from":5641,"to":7374},{"from":5641,"to":9115},{"from":5641,"to":17251},{"from":5641,"to":20477},{"from":5641,"to":21264},{"from":5695,"to":20477},{"from":7374,"to":21974},{"from":7374,"to":5641},{"from":7374,"to":17317},{"from":7374,"to":20477},{"from":7374,"to":29536},{"from":9115,"to":5641},{"from":9115,"to":7374},{"from":9115,"to":9798},{"from":9115,"to":20477},{"from":9115,"to":21264},{"from":9798,"to":21972},{"from":9798,"to":32153},{"from":9798,"to":21974},{"from":9798,"to":21264},{"from":13549,"to":29612},{"from":13549,"to":29536},{"from":17251,"to":5641},{"from":17317,"to":29612},{"from":17317,"to":7374},{"from":17317,"to":29536},{"from":17317,"to":21264},{"from":20427,"to":29536},{"from":20477,"to":5695},{"from":20477,"to":5641},{"from":21264,"to":160},{"from":21264,"to":29581},{"from":21264,"to":29612},{"from":21264,"to":5641},{"from":21264,"to":7374},{"from":21264,"to":9115},{"from":21264,"to":9798},{"from":21264,"to":17317},{"from":21264,"to":20477},{"from":21264,"to":29536},{"from":21963,"to":21971},{"from":21963,"to":21973},{"from":21963,"to":21972},{"from":21963,"to":32153},{"from":21963,"to":21974},{"from":21963,"to":29536},{"from":21971,"to":21963},{"from":21971,"to":21973},{"from":21971,"to":21972},{"from":21971,"to":32153},{"from":21971,"to":21974},{"from":21972,"to":21963},{"from":21972,"to":21971},{"from":21972,"to":21973},{"from":21972,"to":32153},{"from":21972,"to":21974},{"from":21972,"to":17317},{"from":21972,"to":29536},{"from":21973,"to":21963},{"from":21973,"to":21971},{"from":21973,"to":21972},{"from":21973,"to":32153},{"from":21973,"to":21974},{"from":21973,"to":17317},{"from":21974,"to":21963},{"from":21974,"to":21971},{"from":21974,"to":21973},{"from":21974,"to":21972},{"from":21974,"to":32153},{"from":21974,"to":160},{"from":21974,"to":5641},{"from":21974,"to":7374},{"from":21974,"to":9115},{"from":21974,"to":17317},{"from":21974,"to":20477},{"from":21974,"to":29536},{"from":21974,"to":21264},{"from":21984,"to":32153},{"from":21984,"to":29581},{"from":21984,"to":5695},{"from":21984,"to":17251},{"from":21984,"to":20477},{"from":21984,"to":20427},{"from":24232,"to":32344},{"from":29536,"to":13549},{"from":29536,"to":20427},{"from":29581,"to":17251},{"from":29581,"to":21264},{"from":29612,"to":13549},{"from":29612,"to":29536},{"from":32153,"to":21984},{"from":32153,"to":21974},{"from":32153,"to":160},{"from":32153,"to":5641},{"from":32153,"to":9798},{"from":32153,"to":29536},{"from":32344,"to":24232}]}
+  /v0/log:
+    get:
+      tags:
+      - utilities
+      summary: Parse the log of a given query
+      description: |
+        Given a correct query id, returns a plain text of the log given by the algorithm run in the query.<br>
+        <b>NOTE:</b> Try it out function is not supported for this endpoint. <br>
+        <b>Correct usage:</b> curl -X 'GET' 'http://127.0.0.1:8080/v0/log?id=e1ec44af-b8bd-437f-ac50-84e35c890972'
+
+      parameters:
+        - in: query
+          name: id
+          required: true
+          schema:
+            type: string
+            format: uuid
+            example: "e1ec44af-b8bd-437f-ac50-84e35c890972"
+          description: the query id of which the output is needed
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is GET
+        400:
+          description: Error parsing GET request
+        422:
+          description: "GET form is unprocessable: id field is missing, not parsable by UUID standards or non existent in query history"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/IdError"
+        500:
+          description: "Internal server error: server couldn't find or open query log files, or couldn't parse the log file's contents"
+        # FIXME: fix try it mode for 200 response OK in Firefox. Currently Swagger UI is not sending the request to the API for some reason when on firefox, on chrome it seems to work
+        200:
+          description: Logs parsed
+          content:
+            text/plain:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: byte
+                example: "[2023-03-05 19:41:22.270] [main_logger] [info] Log start!\n[2023-03-05 19:41:22.270] [main_logger] [debug] input_file: data/toy0.in.txt\n[2023-03-05 19:41:22.270] [main_logger] [debug] verbose: true\n[2023-03-05 19:41:22.270] [main_logger] [debug] debug: true\n[2023-03-05 19:41:22.270] [main_logger] [debug] firstline_count: 2\n[2023-03-05 19:41:22.270] [main_logger] [debug] reading graph...\n[2023-03-05 19:41:22.270] [main_logger] [debug] --> read graph\n[2023-03-05 19:41:22.270] [main_logger] [debug] reading labels...\n[2023-03-05 19:41:22.270] [main_logger] [debug] --> read labels\n[2023-03-05 19:41:22.270] [main_logger] [info] N: 14\n[2023-03-05 19:41:22.270] [main_logger] [info] M: 21\n[2023-03-05 19:41:22.270] [main_logger] [info] S: 0\n[2023-03-05 19:41:22.270] [main_logger] [info] K: 3\n[2023-03-05 19:41:22.270] [main_logger] [info] R: exp\n[2023-03-05 19:41:22.270] [main_logger] [info] Step 1. BFS\n[2023-03-05 19:41:22.270] [main_logger] [info] nodes: 14\n[2023-03-05 19:41:22.270] [main_logger] [info] destroyed: 6\n[2023-03-05 19:41:22.270] [main_logger] [info] remaining: 8\n[2023-03-05 19:41:22.270] [main_logger] [debug] index map (1)\n[2023-03-05 19:41:22.270] [main_logger] [debug] old2new.size() is 8\n[2023-03-05 19:41:22.270] [main_logger] [debug] 0 => 0, 0 => 0\n[2023-03-05 19:41:22.270] [main_logger] [debug] 1 => 1, 1 => 1\n[2023-03-05 19:41:22.270] [main_logger] [debug] 2 => 2, 2 => 2\n[2023-03-05 19:41:22.270] [main_logger] [debug] 3 => 3, 3 => 3\n[2023-03-05 19:41:22.270] [main_logger] [debug] 4 => 4, 4 => 4\n[2023-03-05 19:41:22.270] [main_logger] [debug] 9 => 5, 5 => 9\n[2023-03-05 19:41:22.270] [main_logger] [debug] 10 => 6, 6 => 10\n[2023-03-05 19:41:22.270] [main_logger] [debug] 11 => 7, 7 => 11\n[2023-03-05 19:41:22.270] [main_logger] [debug] ~~~\n[2023-03-05 19:41:22.270] [main_logger] [info] S: 0, newS: 0\n[2023-03-05 19:41:22.270] [main_logger] [info] Step 2.: BFS on g^T\n[2023-03-05 19:41:22.270] [main_logger] [info] nodes: 14\n[2023-03-05 19:41:22.270] [main_logger] [info] destroyed: 8\n[2023-03-05 19:41:22.270] [main_logger] [info] remaining: 6\n[2023-03-05 19:41:22.270] [main_logger] [debug] newindex: 0\n[2023-03-05 19:41:22.270] [main_logger] [debug] i: 0 - oldi: 0\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_new2old[0]: 0\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(0, 0))\n[2023-03-05 19:41:22.270] [main_logger] [debug] newindex: 1\n[2023-03-05 19:41:22.270] [main_logger] [debug] i: 1 - oldi: 1\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_new2old[1]: 1\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(1, 1))\n[2023-03-05 19:41:22.270] [main_logger] [debug] newindex: 2\n[2023-03-05 19:41:22.270] [main_logger] [debug] i: 2 - oldi: 2\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_new2old[2]: 2\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(2, 2))\n[2023-03-05 19:41:22.270] [main_logger] [debug] newindex: 3\n[2023-03-05 19:41:22.270] [main_logger] [debug] i: 3 - oldi: 3\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_new2old[3]: 3\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(3, 3))\n[2023-03-05 19:41:22.270] [main_logger] [debug] newindex: 4\n[2023-03-05 19:41:22.270] [main_logger] [debug] i: 4 - oldi: 4\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_new2old[4]: 4\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(4, 4))\n[2023-03-05 19:41:22.270] [main_logger] [debug] newindex: 5\n[2023-03-05 19:41:22.270] [main_logger] [debug] i: 5 - oldi: 9\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_new2old[5]: 9\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(9, 5))\n[2023-03-05 19:41:22.270] [main_logger] [debug] *** tmp maps ***\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_old2new, tmp_new2old\n[2023-03-05 19:41:22.270] [main_logger] [debug] tmp_old2new.size() is 6\n[2023-03-05 19:41:22.270] [main_logger] [debug] 0 => 0, 0 => 0\n[2023-03-05 19:41:22.270] [main_logger] [debug] 1 => 1, 1 => 1\n[2023-03-05 19:41:22.270] [main_logger] [debug] 2 => 2, 2 => 2\n[2023-03-05 19:41:22.270] [main_logger] [debug] 3 => 3, 3 => 3\n[2023-03-05 19:41:22.270] [main_logger] [debug] 4 => 4, 4 => 4\n[2023-03-05 19:41:22.270] [main_logger] [debug] 9 => 5, 5 => 9\n[2023-03-05 19:41:22.270] [main_logger] [debug] *** maps BBB ***\n[2023-03-05 19:41:22.270] [main_logger] [debug] old2new.size() is 8\n[2023-03-05 19:41:22.270] [main_logger] [debug] old2new, new2old\n[2023-03-05 19:41:22.270] [main_logger] [debug] 0 => 0, 0 => 0\n[2023-03-05 19:41:22.270] [main_logger] [debug] 1 => 1, 1 => 1\n[2023-03-05 19:41:22.270] [main_logger] [debug] 2 => 2, 2 => 2\n[2023-03-05 19:41:22.270] [main_logger] [debug] 3 => 3, 3 => 3\n[2023-03-05 19:41:22.270] [main_logger] [debug] 4 => 4, 4 => 4\n[2023-03-05 19:41:22.270] [main_logger] [debug] 9 => 5, 5 => 9\n[2023-03-05 19:41:22.270] [main_logger] [debug] 10 => 6, 6 => 10\n[2023-03-05 19:41:22.270] [main_logger] [debug] 11 => 7, 7 => 11\n[2023-03-05 19:41:22.270] [main_logger] [debug] ~~~\n[2023-03-05 19:41:22.270] [main_logger] [debug] *** 1 ***\n[2023-03-05 19:41:22.270] [main_logger] [info] S: 0, S1: 0, S2: 0\n[2023-03-05 19:41:22.270] [main_logger] [debug] map indexes\n[2023-03-05 19:41:22.270] [main_logger] [debug] old2new.size() is 6\n[2023-03-05 19:41:22.270] [main_logger] [debug] 0 => 0, 0 => 0\n[2023-03-05 19:41:22.270] [main_logger] [debug] 1 => 1, 1 => 1\n[2023-03-05 19:41:22.270] [main_logger] [debug] 2 => 2, 2 => 2\n[2023-03-05 19:41:22.270] [main_logger] [debug] 3 => 3, 3 => 3\n[2023-03-05 19:41:22.270] [main_logger] [debug] 4 => 4, 4 => 4\n[2023-03-05 19:41:22.270] [main_logger] [debug] 9 => 5, 5 => 9\n[2023-03-05 19:41:22.270] [main_logger] [debug] ~~~\n[2023-03-05 19:41:22.270] [main_logger] [debug] print_stdout is false\n[2023-03-05 19:41:22.270] [main_logger] [debug] opening specified output file\n[2023-03-05 19:41:22.270] [main_logger] [debug] calling circuit()\n[2023-03-05 19:41:22.270] [main_logger] [debug] remapped node 2 has score 0.0497871\n[2023-03-05 19:41:22.270] [main_logger] [debug] remapped node 1 has score 0.0497871\n[2023-03-05 19:41:22.270] [main_logger] [debug] remapped node 0 has score 0.0497871\n[2023-03-05 19:41:22.270] [main_logger] [debug] remapped node 4 has score 0.0497871\n[2023-03-05 19:41:22.270] [main_logger] [debug] remapped node 3 has score 0.0497871\n[2023-03-05 19:41:22.270] [main_logger] [debug] remapped node 0 has score 0.0995741\n[2023-03-05 19:41:22.270] [main_logger] [debug] remapped node 5 has score 0.135335\n[2023-03-05 19:41:22.270] [main_logger] [debug] remapped node 0 has score 0.234909\n[2023-03-05 19:41:22.270] [main_logger] [debug] remapped node 4 has score 0.0995741\n[2023-03-05 19:41:22.270] [main_logger] [debug] remapped node 5 has score 0.185122\n[2023-03-05 19:41:22.270] [main_logger] [debug] remapped node 0 has score 0.284696\n[2023-03-05 19:41:22.270] [main_logger] [debug] count_calls: 7\n[2023-03-05 19:41:22.270] [main_logger] [debug] called circuit()\n[2023-03-05 19:41:22.270] [main_logger] [debug] calling write_scores()\n[2023-03-05 19:41:22.270] [main_logger] [debug] graph has size 6\n[2023-03-05 19:41:22.270] [main_logger] [info] printing node 0: score 0.284696\n[2023-03-05 19:41:22.270] [main_logger] [info] printing node 1: score 0.0497871\n[2023-03-05 19:41:22.270] [main_logger] [info] printing node 2: score 0.0497871\n[2023-03-05 19:41:22.270] [main_logger] [info] printing node 3: score 0.0497871\n[2023-03-05 19:41:22.270] [main_logger] [info] printing node 4: score 0.0995741\n[2023-03-05 19:41:22.270] [main_logger] [info] printing node 9: score 0.185122\n[2023-03-05 19:41:22.270] [main_logger] [debug] called write_scores()\n[2023-03-05 19:41:22.270] [main_logger] [info] Log stop!"
+
+  /v0/kill:
+    post:
+      tags:
+      - utilities
+      summary: Kill a query given its id
+      description: Given a correct query id, stops the process by killing it.
+
+      requestBody:
+        description: Query id of the process to kill
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+              example:
+                id: "e1ec44af-b8bd-437f-ac50-84e35c890972"
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is POST
+        400:
+          description: Error parsing POST request
+        422:
+          description: "POST form is unprocessable: id field is missing, not parsable by UUID standards or non existent in query history"
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/IdError"
+        500:
+          description: "Internal server error: server couldn't manage to kill the given query"
+          # TODO: get an error of this type
+          #content:
+          #  application/json:
+          #    schema:
+          #      name: error
+          #      type: object
+          #      description: Field in which there was an error and reason for said error
+          #      properties:
+          #        err:
+          #          type: string
+          #          example: "?servererror?"
+        200:
+          description: Query killed
+
+  /v0/status:
+    get:
+      tags:
+      - utilities
+      summary: List of currently running queries
+      descriprion: Returns the list of currently running queries, which is a map between an UUID and a RunningQuery (-> Query string and associated pid)
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is GET
+        200:
+          description: Request OK
+          content:
+            application/json:
+              schema:
+                name: queries
+                type: array
+                description: Map of currently running queries
+                items:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      Query:
+                        type: string
+                      Pid:
+                        type: int
+                # TODO: fix the data type here - there should be curly brackets as the array delimiters
+                example:
+                  [ {"e1ec44af-b8bd-437f-ac50-84e35c890972": {"Query": "f_toy_toy0.in.txt-s0-k3-dfalse-vfalse-eexp", "Pid": 8005} } ]
+
+  /v0/upload:
+    post:
+      tags:
+      - utilities
+      summary: Upload a file
+      description: |
+        Allows the user to create a copy of a local file in the datasets section, given that it respects the given constraints (safe file name, file doesn't exist, correct priviledges are in place). <br>
+        <b>NOTE:</b> Try it out function is not supported for this endpoint. <br>
+        <b>Correct usage:</b> curl -v -X POST -F "file=@/local/path/to/hello.txt" http://localhost:8080/v0/upload
+
+      # TODO: fix try it out mode, handle "curl -F" type of requests
+      requestBody:
+        description: Path to file to upload
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: string
+              example: "file=@/local/path/to/hello.txt"
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is POST
+        400:
+          description: Error parsing POST request
+        422:
+          description: POST form is unprocessable. File path is unsafe, file doesn't exist, correct file priviledges aren't in place
+        500:
+          description: Internal server error, status of file existence couldn't be determined or copy of local file couldn't be created
+        200:
+          description: Request OK, file uploaded correctly
+
+  /v0/datasets:
+    get:
+      tags:
+      - utilities
+      summary: List of currently available datasets
+      descriprion: |
+        Returns the list of currently available datasets as an array of strings.
+        All datasets are placed inside the <i>repository</i> field (by default set to data/)
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is GET
+        500:
+          description: "Internal server error: server couldn't open or read the repository folder"
+        200:
+          description: Request OK
+          content:
+            application/json:
+              schema:
+                name: datasets
+                type: array
+                description: Array of currently available datasets
+                items:
+                  type: string
+                example:
+                  [{"path":"amazon-meta.labeled.txt","name":"Amazon co-purchasing network","size":"57,481","N":"548,552","M":"1,231,439","info":"Amazon co-purchasing network. Labels have been trimmed to fit 256 character limit. More info here: https://networks.skewed.de/net/amazon_copurchases"},{"path":"cit-HepPh.labeled.txt","name":"High-energy physics citation network","size":"8,526","N":"34,546","M":"421,578","info":"High-energy physics citation network. More info here: https://snap.stanford.edu/data/cit-HepPh.html"},{"path":"cit-HepTh.labeled.txt","name":"High-energy physics theory citation network","size":"6,993","N":"27,770","M":"352,807","info":"High-energy physics theory citation network. More info here: https://snap.stanford.edu/data/cit-HepTh.html"},{"path":"enwiki.wikigraph.2002-03-01.cleaned.csv","name":"wikilinkgraph 2002-03-01","size":"3,184","N":"32,689","M":"223,295","info":"Snapshot of 2002-03-01's Wikipedia. The resulting graph is quite small, but still allows for a good qualitative comparison between the various algorithms."},{"path":"eu-core-cleaned.in.txt","name":"eu-core","size":"195","N":"1,005","M":"24,929","info":"Email data from a large European research institution, with dummy labels for each node. More info available on https://snap.stanford.edu/data/email-Eu-core.html"},{"path":"toy1.in.txt","name":"toy1 dataset","size":"1","N":"14","M":"21","info":"Toy dataset with fourteen nodes, twenty one edges and four labels: label0, label1, label2, label3."}]
+  
+  /v0/available:
+    get:
+      tags:
+      - utilities
+      summary: List of currently available queries
+      descriprion: |
+        Returns the list of currently available queries as an array of objects.
+        All queries are placed inside the <i>outputDir</i> field (by default set to output/)
+
+      responses:
+        405:
+          description: Invalid form request. Correct form type is GET
+        500:
+          description: "Internal server error: server couldn't open or read the output folder"
+        200:
+          description: Request OK
+          content:
+            application/json:
+              schema:
+                name: datasets
+                type: array
+                description: Array of currently available datasets
+                items:
+                  type: string
+                example:        
+                  {"00000000-0000-0000-0000-000000000000":[{"task":"008d7e42-d45f-4508-becd-f8a03d319889","name":"008d7e42-d45f-4508-becd-f8a03d319889.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/7de54b31-d434-4eba-b09e-33d702b2563e_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"03639c76-d109-4f1a-be32-bee6e10dbee9","name":"03639c76-d109-4f1a-be32-bee6e10dbee9.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"06a274c2-ae20-47fe-8e01-59b804aea633","name":"06a274c2-ae20-47fe-8e01-59b804aea633.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b26e3e3f-f274-41cc-bffb-3310d3e31d2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"077f3a0b-cef0-484e-8995-d3178c5a43ca","name":"077f3a0b-cef0-484e-8995-d3178c5a43ca.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"097d252f-fc4f-47ae-8801-88b7d6c4fca7","name":"097d252f-fc4f-47ae-8801-88b7d6c4fca7.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"0d646146-5456-41a0-a5b4-1fffc6488ee1","name":"0d646146-5456-41a0-a5b4-1fffc6488ee1.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"0dd9f995-84a4-4991-a9d2-5842bcceebd7","name":"0dd9f995-84a4-4991-a9d2-5842bcceebd7.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"171c8870-b5d2-4164-9500-3a5d18cb4635","name":"171c8870-b5d2-4164-9500-3a5d18cb4635.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"1bbaddfc-33ba-4c7d-bb9b-2439b861255c","name":"1bbaddfc-33ba-4c7d-bb9b-2439b861255c.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"100","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"1bc6004b-c509-49a0-b75f-b7d4be654d58","name":"1bc6004b-c509-49a0-b75f-b7d4be654d58.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/633248ac-057e-4f49-8401-f86f20e10e66_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"20bf0219-ac9e-439f-9d5a-c582efeecc6b","name":"20bf0219-ac9e-439f-9d5a-c582efeecc6b.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"2453e047-3846-45be-ac19-1d9463bc5719","name":"2453e047-3846-45be-ac19-1d9463bc5719.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"24771290-7e2f-43b2-8bfa-41f8603ca47f","name":"24771290-7e2f-43b2-8bfa-41f8603ca47f.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/ccdf3124-0e8f-41e0-8de6-b311c740c5f0_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"286922a0-5918-4955-9a74-e10e2bda61d8","name":"286922a0-5918-4955-9a74-e10e2bda61d8.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/fb698a80-d623-4cc3-8ada-79aba2fa3649_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"2bc5be45-c480-4d4c-b435-1df4dc2f9b77","name":"2bc5be45-c480-4d4c-b435-1df4dc2f9b77.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"2dff10ef-a9a2-4b8c-91d6-e6b1f246b367","name":"2dff10ef-a9a2-4b8c-91d6-e6b1f246b367.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/3d48c431-66d7-41d7-b62a-2447da6fa511_c60c033a-bca1-40c8-b0e1-e30d7ac6f6a0.csv"}},{"task":"3175c3c8-c22b-49f7-9560-8ebd41a22f7c","name":"3175c3c8-c22b-49f7-9560-8ebd41a22f7c.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"338018dc-927b-4b18-83fd-3527f5ba168f","name":"338018dc-927b-4b18-83fd-3527f5ba168f.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b26e3e3f-f274-41cc-bffb-3310d3e31d2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"349d7917-6e56-4fc0-8bd1-f895d8fc5d27","name":"349d7917-6e56-4fc0-8bd1-f895d8fc5d27.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"34d28d0b-2d5f-42e1-ba7d-14f02c3f0510","name":"34d28d0b-2d5f-42e1-ba7d-14f02c3f0510.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/633248ac-057e-4f49-8401-f86f20e10e66_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"39a11e4a-94ec-44ac-ba80-91ef4c74f1d2","name":"39a11e4a-94ec-44ac-ba80-91ef4c74f1d2.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/bfba07e6-0058-493e-908e-1351695f80ce_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"3a6a521f-dea5-4a45-b0a5-71bc56d70770","name":"3a6a521f-dea5-4a45-b0a5-71bc56d70770.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b26e3e3f-f274-41cc-bffb-3310d3e31d2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"42c05cb8-a355-48a5-aed8-b6cdafe79739","name":"42c05cb8-a355-48a5-aed8-b6cdafe79739.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"435dedaa-6694-481d-8c38-5f3562045fd8","name":"435dedaa-6694-481d-8c38-5f3562045fd8.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"46b815a4-03cc-40de-9c5a-1eaff832d1e7","name":"46b815a4-03cc-40de-9c5a-1eaff832d1e7.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"4713cecd-08d7-491f-88b1-9679f5ff44ca","name":"4713cecd-08d7-491f-88b1-9679f5ff44ca.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/3bc21e4f-1069-4435-9052-e6e232068059_e1993577-9b2b-4a81-9980-d0c62293abc8.csv"}},{"task":"47b0a01c-7583-454d-a03e-4cc19ae5b898","name":"47b0a01c-7583-454d-a03e-4cc19ae5b898.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"100","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/fb698a80-d623-4cc3-8ada-79aba2fa3649_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"4d167b00-e21a-4b27-a4af-be20d3103666","name":"4d167b00-e21a-4b27-a4af-be20d3103666.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"519eeaf7-7eb9-44cb-a478-0d7acd5a8aff","name":"519eeaf7-7eb9-44cb-a478-0d7acd5a8aff.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"100","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"569b8d1d-c7c6-4c6a-8355-5e9f1ed8895c","name":"569b8d1d-c7c6-4c6a-8355-5e9f1ed8895c.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/bfba07e6-0058-493e-908e-1351695f80ce_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"5d3e4dfb-6445-4469-96a1-7993ebbffff7","name":"5d3e4dfb-6445-4469-96a1-7993ebbffff7.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/7de54b31-d434-4eba-b09e-33d702b2563e_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"5d9cbbee-5470-4b49-ba42-9bc5aeda5d81","name":"5d9cbbee-5470-4b49-ba42-9bc5aeda5d81.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b26e3e3f-f274-41cc-bffb-3310d3e31d2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"5f25edc7-f919-4fbb-b7ed-378de8475993","name":"5f25edc7-f919-4fbb-b7ed-378de8475993.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/d8ed825c-082e-48cd-bb2f-6b8f7b82665b_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"623b30c0-69ec-47d1-a8ee-306cb2fb2792","name":"623b30c0-69ec-47d1-a8ee-306cb2fb2792.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/bfba07e6-0058-493e-908e-1351695f80ce_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"63c2e691-adf3-4112-be70-b7c46e2b3255","name":"63c2e691-adf3-4112-be70-b7c46e2b3255.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b26e3e3f-f274-41cc-bffb-3310d3e31d2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"647ccf47-9d06-4e08-9a3c-aebe4eeb8038","name":"647ccf47-9d06-4e08-9a3c-aebe4eeb8038.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/7de54b31-d434-4eba-b09e-33d702b2563e_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"65f5ee57-1d1e-4966-8d20-e22376be4608","name":"65f5ee57-1d1e-4966-8d20-e22376be4608.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/52f59df6-99a5-499e-9ce2-31b47bfd300f_e1993577-9b2b-4a81-9980-d0c62293abc8.csv"}},{"task":"6698bf46-2b51-4016-ad7d-55051e2f96d8","name":"6698bf46-2b51-4016-ad7d-55051e2f96d8.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"6b65a6fd-b40f-4880-867e-76863f8f15ce","name":"6b65a6fd-b40f-4880-867e-76863f8f15ce.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"76f1a191-5c78-4af3-9a86-48ccc5883d09","name":"76f1a191-5c78-4af3-9a86-48ccc5883d09.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"100","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b26e3e3f-f274-41cc-bffb-3310d3e31d2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"76fa73fb-68e1-4c20-87ce-b751a511e435","name":"76fa73fb-68e1-4c20-87ce-b751a511e435.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b26e3e3f-f274-41cc-bffb-3310d3e31d2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"78249ea6-ccc4-4c71-812d-da880b95ae64","name":"78249ea6-ccc4-4c71-812d-da880b95ae64.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/6263badb-1575-4c25-b974-377f96eb7fc7_c60c033a-bca1-40c8-b0e1-e30d7ac6f6a0.csv"}},{"task":"799d0d5c-561f-4d2b-aba7-864cf881c45d","name":"799d0d5c-561f-4d2b-aba7-864cf881c45d.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"79a26dea-ed48-4248-aaed-0dcdb774dfa8","name":"79a26dea-ed48-4248-aaed-0dcdb774dfa8.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/89f19745-d016-4b8b-8dc5-7b3200e63dbc_acd98182-90bf-488a-8adf-fdae320ca604.csv"}},{"task":"7a92094c-23d1-4575-bcfc-bfc5f14e4482","name":"7a92094c-23d1-4575-bcfc-bfc5f14e4482.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5c448d29-bebb-489d-baca-d34afcd3c62a_e1993577-9b2b-4a81-9980-d0c62293abc8.csv"}},{"task":"82931106-8895-4154-89f1-1a3f311f5894","name":"82931106-8895-4154-89f1-1a3f311f5894.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/fb698a80-d623-4cc3-8ada-79aba2fa3649_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"841303d1-e88e-4a4f-83c8-cfe4c5df27b1","name":"841303d1-e88e-4a4f-83c8-cfe4c5df27b1.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/ccdf3124-0e8f-41e0-8de6-b311c740c5f0_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"8f5ef787-20c2-4d7d-b977-36623e317c24","name":"8f5ef787-20c2-4d7d-b977-36623e317c24.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/633248ac-057e-4f49-8401-f86f20e10e66_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"94a3bbb8-0564-4320-a449-4c1630ec99cd","name":"94a3bbb8-0564-4320-a449-4c1630ec99cd.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"97b04a83-1d15-494e-a3e5-269bef1f6cf6","name":"97b04a83-1d15-494e-a3e5-269bef1f6cf6.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/d8ed825c-082e-48cd-bb2f-6b8f7b82665b_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"9a2f59ff-7e92-49b6-b85b-81e511634c73","name":"9a2f59ff-7e92-49b6-b85b-81e511634c73.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"9b9140cd-97c0-4083-b9d4-fdb9bf787617","name":"9b9140cd-97c0-4083-b9d4-fdb9bf787617.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"100","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"9f5e97e4-37b1-4241-92e8-209b675fa784","name":"9f5e97e4-37b1-4241-92e8-209b675fa784.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"100","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b26e3e3f-f274-41cc-bffb-3310d3e31d2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"a365f637-e6fe-4b96-a057-1b58c65b1654","name":"a365f637-e6fe-4b96-a057-1b58c65b1654.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"a8bffd52-dc11-43ce-be8d-271396796397","name":"a8bffd52-dc11-43ce-be8d-271396796397.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/ccdf3124-0e8f-41e0-8de6-b311c740c5f0_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"aefe0862-277f-4f05-9204-86501fbe9690","name":"aefe0862-277f-4f05-9204-86501fbe9690.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"b029f7ea-953f-43fa-a494-c498541ee75d","name":"b029f7ea-953f-43fa-a494-c498541ee75d.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"b606473b-8ebf-41e1-859b-e9ee3ce8e5a0","name":"b606473b-8ebf-41e1-859b-e9ee3ce8e5a0.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/fb698a80-d623-4cc3-8ada-79aba2fa3649_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"b81d0793-3765-412f-a93c-2f45166e478f","name":"b81d0793-3765-412f-a93c-2f45166e478f.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/d8ed825c-082e-48cd-bb2f-6b8f7b82665b_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"be037efc-8180-4f4f-9bf1-fa6bfd35a77e","name":"be037efc-8180-4f4f-9bf1-fa6bfd35a77e.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/324c9516-eb0a-48fa-9c0c-43c8076762ce_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"c1f7e0db-0c85-44fb-97a9-7df1cb7e3280","name":"c1f7e0db-0c85-44fb-97a9-7df1cb7e3280.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"100","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/3d48c431-66d7-41d7-b62a-2447da6fa511_c60c033a-bca1-40c8-b0e1-e30d7ac6f6a0.csv"}},{"task":"c515cf02-e898-4c73-8fba-df7fe1ee588d","name":"c515cf02-e898-4c73-8fba-df7fe1ee588d.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/7de54b31-d434-4eba-b09e-33d702b2563e_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"c87c95c7-1031-4384-85a3-0f60d3950304","name":"c87c95c7-1031-4384-85a3-0f60d3950304.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"c8b9fdeb-c6d6-42f1-b708-06226184ec85","name":"c8b9fdeb-c6d6-42f1-b708-06226184ec85.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/fb698a80-d623-4cc3-8ada-79aba2fa3649_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"c938c4c8-e08e-4c86-a3e0-3cd9e94dde93","name":"c938c4c8-e08e-4c86-a3e0-3cd9e94dde93.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/9d9c72f8-5768-4896-8e01-1f3ec8d0ea19_c60c033a-bca1-40c8-b0e1-e30d7ac6f6a0.csv"}},{"task":"ce90c408-298b-47ad-8267-bf74ea9ae74a","name":"ce90c408-298b-47ad-8267-bf74ea9ae74a.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/324c9516-eb0a-48fa-9c0c-43c8076762ce_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"d47e4286-0c69-4d43-9c34-4cdad8af70f6","name":"d47e4286-0c69-4d43-9c34-4cdad8af70f6.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"da2a4b9b-bb04-4415-8300-31f717a9b60f","name":"da2a4b9b-bb04-4415-8300-31f717a9b60f.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"1000","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"df622d9c-ffdc-450a-a940-c676487577ba","name":"df622d9c-ffdc-450a-a940-c676487577ba.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"e5663eda-ab17-43d4-9543-c2e203c70d60","name":"e5663eda-ab17-43d4-9543-c2e203c70d60.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"e96be3d8-5a08-436d-a26e-2a5d0d3fecf9","name":"e96be3d8-5a08-436d-a26e-2a5d0d3fecf9.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"ea62ee91-98bb-4191-97d4-5a8f9e47b301","name":"ea62ee91-98bb-4191-97d4-5a8f9e47b301.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv"}},{"task":"eb9a50ed-b38f-47c7-9c9a-e9c3f4c09641","name":"eb9a50ed-b38f-47c7-9c9a-e9c3f4c09641.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/324c9516-eb0a-48fa-9c0c-43c8076762ce_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"ee15c31e-821b-4cf3-bbf1-afe0acf90d6b","name":"ee15c31e-821b-4cf3-bbf1-afe0acf90d6b.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/633248ac-057e-4f49-8401-f86f20e10e66_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"f3a8d056-5ca5-475c-93d4-230aa3de0eed","name":"f3a8d056-5ca5-475c-93d4-230aa3de0eed.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/d8ed825c-082e-48cd-bb2f-6b8f7b82665b_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"f4ad4545-c7c2-4010-9ddb-435fda567268","name":"f4ad4545-c7c2-4010-9ddb-435fda567268.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/324c9516-eb0a-48fa-9c0c-43c8076762ce_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"faf5d749-6cc0-4928-8b1e-00ce2ad42179","name":"faf5d749-6cc0-4928-8b1e-00ce2ad42179.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/ccdf3124-0e8f-41e0-8de6-b311c740c5f0_cc9bf632-4315-4377-8e3c-7755d487e465.csv"}},{"task":"fbd40c9c-0487-43b2-94fd-0566f87b01a7","name":"fbd40c9c-0487-43b2-94fd-0566f87b01a7.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b26e3e3f-f274-41cc-bffb-3310d3e31d2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"fd01126d-51e7-4a42-a3be-ceb116d1d191","name":"fd01126d-51e7-4a42-a3be-ceb116d1d191.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/b26e3e3f-f274-41cc-bffb-3310d3e31d2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}},{"task":"fd5078c3-ee66-416b-8a92-f7e822f48741","name":"fd5078c3-ee66-416b-8a92-f7e822f48741.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/bfba07e6-0058-493e-908e-1351695f80ce_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv"}},{"task":"ff2e8f8d-8833-4ea9-8921-2cbbb2e9ed81","name":"ff2e8f8d-8833-4ea9-8921-2cbbb2e9ed81.csv","params":{"algorithm":"Subgraph Generator","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxnodes":"25","query_to_analyze":"/home/elohim/università/tesi/cyclerank-api/output/858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv"}}],"2f58b29e-bd54-4484-8f86-1cb449cf217b":[{"task":"858c0361-0325-4f28-a549-748145a33f2c","name":"858c0361-0325-4f28-a549-748145a33f2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv","params":{"algorithm":"Cyclerank","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxloop":"3","scoring_function":"lin","source":"Internet"}},{"task":"b26e3e3f-f274-41cc-bffb-3310d3e31d2c","name":"b26e3e3f-f274-41cc-bffb-3310d3e31d2c_2f58b29e-bd54-4484-8f86-1cb449cf217b.csv","params":{"algorithm":"PageRank","alpha":"0.3","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv"}}],"765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6":[{"task":"7de54b31-d434-4eba-b09e-33d702b2563e","name":"7de54b31-d434-4eba-b09e-33d702b2563e_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv","params":{"algorithm":"Single Source CheiRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","source":"Internet"}},{"task":"bfba07e6-0058-493e-908e-1351695f80ce","name":"bfba07e6-0058-493e-908e-1351695f80ce_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv","params":{"algorithm":"CheiRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv"}},{"task":"d8ed825c-082e-48cd-bb2f-6b8f7b82665b","name":"d8ed825c-082e-48cd-bb2f-6b8f7b82665b_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv","params":{"algorithm":"2dRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv"}},{"task":"fb698a80-d623-4cc3-8ada-79aba2fa3649","name":"fb698a80-d623-4cc3-8ada-79aba2fa3649_765b0a1b-5f6f-4ee6-822b-06b3e0a85ae6.csv","params":{"algorithm":"Single Source 2dRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","source":"Internet"}}],"acd98182-90bf-488a-8adf-fdae320ca604":[{"task":"89f19745-d016-4b8b-8dc5-7b3200e63dbc","name":"89f19745-d016-4b8b-8dc5-7b3200e63dbc_acd98182-90bf-488a-8adf-fdae320ca604.csv","params":{"algorithm":"Cyclerank","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxloop":"3","scoring_function":"exp","source":"Internet"}}],"c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c":[{"task":"5b01eae8-24bd-4867-93aa-747104b41cbf","name":"5b01eae8-24bd-4867-93aa-747104b41cbf_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv","params":{"algorithm":"PageRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv"}},{"task":"b9989580-dab2-4fbc-bbac-a38ba186b539","name":"b9989580-dab2-4fbc-bbac-a38ba186b539_c35ff3b2-5d4e-42dc-9b3d-7535963e3e0c.csv","params":{"algorithm":"Single Source Personalized PageRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","source":"Internet"}}],"c60c033a-bca1-40c8-b0e1-e30d7ac6f6a0":[{"task":"3d48c431-66d7-41d7-b62a-2447da6fa511","name":"3d48c431-66d7-41d7-b62a-2447da6fa511_c60c033a-bca1-40c8-b0e1-e30d7ac6f6a0.csv","params":{"algorithm":"PageRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv"}},{"task":"6263badb-1575-4c25-b974-377f96eb7fc7","name":"6263badb-1575-4c25-b974-377f96eb7fc7_c60c033a-bca1-40c8-b0e1-e30d7ac6f6a0.csv","params":{"algorithm":"Cyclerank","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxloop":"3","scoring_function":"exp","source":"Internet"}},{"task":"9d9c72f8-5768-4896-8e01-1f3ec8d0ea19","name":"9d9c72f8-5768-4896-8e01-1f3ec8d0ea19_c60c033a-bca1-40c8-b0e1-e30d7ac6f6a0.csv","params":{"algorithm":"Single Source Personalized PageRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","source":"Internet"}}],"cc9bf632-4315-4377-8e3c-7755d487e465":[{"task":"324c9516-eb0a-48fa-9c0c-43c8076762ce","name":"324c9516-eb0a-48fa-9c0c-43c8076762ce_cc9bf632-4315-4377-8e3c-7755d487e465.csv","params":{"algorithm":"PageRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv"}},{"task":"633248ac-057e-4f49-8401-f86f20e10e66","name":"633248ac-057e-4f49-8401-f86f20e10e66_cc9bf632-4315-4377-8e3c-7755d487e465.csv","params":{"algorithm":"Cyclerank","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxloop":"3","scoring_function":"exp","source":"Internet"}},{"task":"ccdf3124-0e8f-41e0-8de6-b311c740c5f0","name":"ccdf3124-0e8f-41e0-8de6-b311c740c5f0_cc9bf632-4315-4377-8e3c-7755d487e465.csv","params":{"algorithm":"Single Source Personalized PageRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","source":"Internet"}}],"e1993577-9b2b-4a81-9980-d0c62293abc8":[{"task":"3bc21e4f-1069-4435-9052-e6e232068059","name":"3bc21e4f-1069-4435-9052-e6e232068059_e1993577-9b2b-4a81-9980-d0c62293abc8.csv","params":{"algorithm":"Single Source Personalized PageRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","source":"Internet"}},{"task":"52f59df6-99a5-499e-9ce2-31b47bfd300f","name":"52f59df6-99a5-499e-9ce2-31b47bfd300f_e1993577-9b2b-4a81-9980-d0c62293abc8.csv","params":{"algorithm":"PageRank","alpha":"0.85","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv"}},{"task":"5c448d29-bebb-489d-baca-d34afcd3c62a","name":"5c448d29-bebb-489d-baca-d34afcd3c62a_e1993577-9b2b-4a81-9980-d0c62293abc8.csv","params":{"algorithm":"Cyclerank","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxloop":"3","scoring_function":"exp","source":"Internet"}}]}
+
+definitions:
+  QueryForm_Cyclerank:
+    type: object
+    required:
+    - file
+    - source
+    - maxloop
+    properties:
+      file:
+        type: string
+        example: toy0/toy0.in.txt
+        description: Input file's path. By default the local path starts from /data
+      source:
+        type: integer
+        format: int64
+        description: The source node from which the algorithm has to start. Must be an existing node
+      maxloop:
+        type: integer
+        format: int64
+        example: 3
+        description: The max cycle size allowed
+      job_id:
+        type: string
+        format: uuid
+        example: "e1ec44af-b8bd-437f-ac50-84e35c890972"
+        description: Job uuid used to group multiple tasks
+      debug:
+        type: boolean
+        description: Allow debug mode
+        example: false
+      verbose:
+        type: boolean
+        description: Allow verbose mode
+        example: false
+      scoring_function:
+        type: string
+        example: exp
+        description: The scoring function used to rank the graph's nodes. Must be either exp, lin or log
+    xml:
+      name: QueryForm_Cyclerank
+
+  QueryForm_Pr:
+    type: object
+    required:
+    - file
+    properties:
+      file:
+        type: string
+        example: toy0/toy0.in.txt
+        description: Input file's path. By default the local path starts from /data
+      alpha:
+        type: float
+        format: f64
+        example: 0.8
+        description: The probability with which the algorithm will jump between nodes. Must be between 0 and 1
+      job_id:
+        type: string
+        format: uuid
+        example: "e1ec44af-b8bd-437f-ac50-84e35c890972"
+        description: Job uuid used to group multiple tasks
+      debug:
+        type: boolean
+        description: Allow debug mode
+        example: false
+      verbose:
+        type: boolean
+        description: Allow verbose mode
+        example: false
+    xml:
+      name: QueryForm_Pr
+
+  QueryForm_Ssppr:
+    type: object
+    required:
+    - file
+    - source
+    properties:
+      file:
+        type: string
+        example: toy0/toy0.in.txt
+        description: Input file's path. By default the local path starts from /data
+      source:
+        type: integer
+        format: int64
+        description: The source node from which the algorithm has to start
+      alpha:
+        type: float
+        format: f64
+        example: 0.8
+        description: The probability with which the algorithm will jump between nodes. Must be between 0 and 1
+      job_id:
+        type: string
+        format: uuid
+        example: "e1ec44af-b8bd-437f-ac50-84e35c890972"
+        description: Job uuid used to group multiple tasks
+      debug:
+        type: boolean
+        description: Allow debug mode
+        example: false
+      verbose:
+        type: boolean
+        description: Allow verbose mode
+        example: false
+    xml:
+      name: QueryForm_Ssppr
+
+  QueryForm_Subgr:
+    type: object
+    required:
+    - query_to_analyze
+    properties:
+      query_to_analyze:
+        type: string
+        format: uuid
+        example: 0c85c03e-4254-482d-a078-5b52d1d576b4
+        description: Id of the query from which the subgraph will be generated. The query's dataset is parsed automatically.
+      maxnodes:
+        type: integer
+        format: int64
+        description: The maximum number of nodes of the subgraph
+      job_id:
+        type: string
+        format: uuid
+        example: "e1ec44af-b8bd-437f-ac50-84e35c890972"
+        description: Job uuid used to group multiple tasks
+      debug:
+        type: boolean
+        description: Allow debug mode
+        example: false
+      verbose:
+        type: boolean
+        description: Allow verbose mode
+        example: false
+    xml:
+      name: QueryForm_Subgr
+
+
+  QueryResults:
+    type: array
+    description: List of scores calculated by the algorithm, with relative nodes and labels
+    items:
+      type: object
+      properties:
+        id:
+          type: int64
+        score:
+          type: f64
+        label:
+          type: string
+    example:
+      {"jobid":"e1993577-9b2b-4a81-9980-d0c62293abc8","task":"5c448d29-bebb-489d-baca-d34afcd3c62a","name":"5c448d29-bebb-489d-baca-d34afcd3c62a_e1993577-9b2b-4a81-9980-d0c62293abc8.csv","params":{"algorithm":"Cyclerank","file":"/enwiki.wikigraph.2002-03-01.cleaned.csv","maxloop":"3","scoring_function":"exp","source":"Internet"},"ranking":[{"id":9120,"score":4.7045050185,"label":"Internet"},{"id":8567,"score":0.6332059669,"label":"History of the Internet"},{"id":9739,"score":0.4340576934,"label":"Internet protocol suite"},{"id":9611,"score":0.3842706251,"label":"Internet Engineering Task Force"},{"id":9246,"score":0.3344835567,"label":"Internet Standard"},{"id":29314,"score":0.2846964883,"label":"Public switched telephone network"},{"id":9153,"score":0.23490942,"label":"Internet troll"},{"id":22163,"score":0.1991482735,"label":"1986"},{"id":21974,"score":0.1493612051,"label":"20th century"},{"id":9507,"score":0.1353352832,"label":"Internet humor"},{"id":8255,"score":0.0995741367,"label":"HTML"},{"id":1975,"score":0.0497870684,"label":"Bulletin board system"}]}
+    xml:
+      name: QueryResults
+
+  SubgraphEdges:
+    type: array
+    description: List of edges calculated by the algorithm, with relative nodes
+    items:
+      type: object
+      properties:
+        from:
+          type: int64
+        to:
+          type: f64
+    xml:
+      name: QueryResults
+
+
+  UnprocessableForm_Pr:
+    type: object
+    description: Field(s) in which there was an error and reason for said error
+    properties:
+      file:
+        type: string
+      alpha:
+        type: string
+    example:
+      alpha: "not a float between 0.0 and 1.0"
+    xml:
+      name: UnprocessableForm_Pr
+
+  UnprocessableForm_Ssppr:
+    type: object
+    description: Field(s) in which there was an error and reason for said error
+    properties:
+      file:
+        type: string
+      source:
+        type: string
+      alpha:
+        type: string
+    example:
+      alpha: "not a float between 0.0 and 1.0"
+    xml:
+      name: UnprocessableForm_Ssppr
+
+  UnprocessableForm_Subgr:
+    type: object
+    description: Field(s) in which there was an error and reason for said error
+    properties:
+      query_to_analyze:
+        type: string
+    example:
+        query_to_analyze: "must be a valid uuid"
+    xml:
+      name: UnprocessableForm_Subgr
+
+
+  QueryId:
+    type: object
+    description: Query id of the query in execution
+    properties:
+      id:
+        type: string
+        format: uuid
+        example: "81991e85-67dd-449a-b080-1e6c0d678978"
+    xml:
+      name: QueryId
+
+  IdError:
+    type: object
+    description: Field in which there was an error and reason for said error
+    properties:
+      id:
+        type: string
+        example: "must be a valid uuid"
+    xml:
+      name: IdError

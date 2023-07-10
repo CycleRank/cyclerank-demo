@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cyclerank demo :: about</title>
+    
+        <meta name="author" content="cristian.consonni@eurecat.org,mb@martinbrugnara.it,luca.cavalcanti@studenti.unitn.it">
+    
+        <!-- <link rel="icon" href="images/favicon.png" /> -->
+    
+        <link rel="stylesheet" href="main.css">
+
+        <style>
+          h2, ul {
+            padding: 1rem;
+          }
+          header > div, .nav-items {
+            padding: 0rem;
+          }
+          li {
+            list-style: circle;
+            margin-left: 1rem;
+          }
+          img {
+            margin-left: 1rem;
+          }
+          .nav-item {
+            list-style: none;
+          }
+          .author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+          }
+          .author img {
+            width: 100px;
+            height: 100px;
+            /* border-radius: 50%; */     /* circles */
+            border-radius: 10px;          /* squares */
+            margin-right: 20px;
+            object-fit: cover;
+          }
+          .author .bio {
+            flex: 1;
+          }
+        </style>
+
+    </head>
+    <body>
+      <div class="above-header">
+        <div class="demo-name">Cyclerank: Improving Personalized Relevance Scores in Directed Graphs</div>
+      </div>
+        <header id="myHeader">
+            <nav class="navbar">
+                <ul class="nav-items">
+                    <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
+                    <li class="nav-item"><a href="compare.html" class="nav-link">TRY IT OUT</a></li>
+                    <li class="nav-item"><a href="examples.html" class="nav-link">EXAMPLES</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">ABOUT</a></li>
+                    <li class="nav-item"><a href="algorithms.html" class="nav-link">ALGORITHMS</a></li>
+                    <li class="nav-item"><a href="instructions.html" class="nav-link">INSTRUCTIONS</a></li>
+                    <li class="nav-item"><a href="video.html" class="nav-link">VIDEO</a></li>
+                </ul>
+            </nav>
+            <label id="switch" class="switch">
+                <input type="checkbox" onchange="toggleTheme()" id="slider">
+                <span class="slider round"></span>
+            </label>
+            <div class="menu-toggle">
+              <i class="bx bx-menu"></i>
+              <i class="bx bx-x"></i>
+            </div>
+        </header>
+
+        <h2>Main Papers</h2>
+
+        <ul>
+            <li>
+                Cristian Consonni, David Laniado, and Alberto Montresor.
+                <a href="https://consonni.dev/publications/files/cyclerank.pdf" target="_blank"><em>"CycleRank, or there and back again: personalized relevance scores from cyclic paths on directed graphs."</em></a>
+                Proceedings of the Royal Society A 476.2241 (2020): 20190740.
+            </li>
+            <li>
+                Cristian Consonni, David Laniado, and Alberto Montresor.
+                <a href="https://consonni.dev/publications/files/WikiLinkGraphs.pdf" target="_blank"><em>"WikiLinkGraphs: a complete, longitudinal and multi-language dataset of the Wikipedia link networks."</em></a>
+                Proceedings of the International AAAI Conference on Web and Social Media. Vol. 13. 2019.
+            </li>
+            <li>
+                Cristian Consonni, David Laniado, and Alberto Montresor.
+                <a href="https://consonni.dev/publications/files/Wiki_Workshop_2019_paper_20.pdf" target="_blank"><em>"Discovering Topical Contexts from Links in Wikipedia"</em></a>
+                Wiki Workshop 2019, part of The Web Conference 2019 (2019)
+            </li>
+        </ul>
+
+        <h2>Authors</h2>
+
+        <div class="author">
+            <img src="./images/luca.jpg" alt="Luca Cavalcanti">
+            <div class="bio">
+                <h3>Luca Cavalcanti</h2>
+                    <p>Luca Cavalcanti is an undergraduate student at the University of Trento, Italy and is currently working on his thesis at Eurecat - Centre Tecnològic de Catalunya in Barcelona, delving in the world of relevance algorithms on graphs and their visualization.</p>
+            </div>
+        </div>
+
+        <div class="author">
+            <img src="./images/cristian.jpg" alt="Cristian Consonni">
+            <div class="bio">
+                <h3>Cristian Consonni</h2>
+                    <p>Cristian Consonni is an Advanced Research Scientist in the Data Science and Big Data Analytics unit at Eurecat - Centre Tecnològic de Catalunya in Barcelona. He works on Computational Social Science, studying social phenomena through digital platforms and, in particular, the dynamics of online communities. He received his Ph.D. in computer science from the University of Trento, Italy, with a thesis on extracting knowledge from hyperlinks between Wikipedia pages.</p>
+            </div>
+        </div>
+
+        <div class="author">
+            <img src="./images/martin.jpg" alt="Martin Brugnara">
+            <div class="bio">
+                <h3>Martin Brugnara</h2>
+                    <p>Martin Brugnara is a Senior Member of Technical Staff at Oracle Labs Zurich, where he works on Graphs and RDBMS. He received a Ph.D. in computer science from the University of Trento with a thesis on Understanding and Managing Complex Datasets.</p>
+            </div>
+        </div>
+
+        <div class="author">
+            <img src="./images/david.jpg" alt="David Laniado">
+            <div class="bio">
+                <h3>David Laniado</h2>
+                    <p>David Laniado is Senior Research Scientist in the Data Science and Big Data Analytics unit at Eurecat. He obtained from Politecnico di Milano his Ph.D. in Information Engineering in 2012. His research focuses on Computational Social Science, and in particular in the study of online interactions and online communities. He is co-author of more than 50 academic publications in this field.</p>
+            </div>
+        </div>
+
+        <div class="author">
+            <img src="./images/alberto.jpg" alt="Alberto Montresor">
+            <div class="bio">
+                <h3>Alberto Monrresor</h2>
+                    <p>Alberto Montresor is a Full Professor at the University of Trento, Italy. Alberto Montresor received his Ph.D. in Computer Science from the University of Bologna, Italy in 2000. He joined the University of Trento in 2005 and became a full Professor in 2020. Since 2022, he has been a member of the Academic Senate and serves as the Delegate of the Rector for Third Mission at the University of Trento. Montresor has published over 120 papers in the field of distributed systems, with a focus on large-scale decentralized systems. He was recognized as a Highly Cited Researcher in both 2020 and 2022 by Stanford University's Highly Cited Researchers Ranking.</p>
+            </div>
+        </div>
+
+        <script src="animations.js"></script>
+    </body>
+</html>

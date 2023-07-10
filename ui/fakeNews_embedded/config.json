@@ -1,0 +1,53 @@
+{
+  "type": "network",
+  "version": "1.0",
+  "data": "data.json",
+  "logo": {
+    "file": "",
+    "link": "",
+    "text": "David Laniado"
+  },
+  "text": {
+    "more": "Network of links between Wikipedia articles around concept Fake news, from March 2018 snapshot.\nAll articles connected to Fake news through a loop of length 3 or shorter are shown.\nLarger node and label size correspond to higher LoopRank score. \n",
+    "intro": "Network of Wikipedia links around Fake news",
+    "title": "Fake news"
+  },
+  "legend": {
+    "edgeLabel": "Hyperlink between two articles",
+    "colorLabel": "Groups of densely connected nodes (clusters)",
+    "nodeLabel": "Wikipedia article"
+  },
+  "features": {
+    "search": true,
+    "groupSelectorAttribute": "Modularity Class",
+    "hoverBehavior": "default"
+  },
+  "informationPanel": {
+    "groupByEdgeDirection": true,
+    "imageAttribute": "Label"
+  },
+  "sigma": {
+    "drawingProperties": {
+      "defaultEdgeType": "curve",
+      "defaultHoverLabelBGColor": "#002147",
+      "defaultLabelBGColor": "#ddd",
+      "activeFontStyle": "bold",
+      "defaultLabelColor": "hsl(0, 0%, 85%)",
+      "labelThreshold": 3,
+      "defaultLabelHoverColor": "#fff",
+      "fontStyle": "bold",
+      "hoverFontStyle": "bold",
+      "defaultLabelSize": 14
+    },
+    "graphProperties": {
+      "maxEdgeSize": 0.5,
+      "minEdgeSize": 0.2,
+      "minNodeSize": 1,
+      "maxNodeSize": 7
+    },
+    "mouseProperties": {
+      "maxRatio": 20,
+      "minRatio": 0.75
+    }
+  }
+}

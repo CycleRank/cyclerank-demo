@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Cyclerank demo :: about</title>
+    
+        <meta name="author" content="cristian.consonni@eurecat.org,mb@martinbrugnara.it,luca.cavalcanti@studenti.unitn.it">
+    
+        <!-- <link rel="icon" href="images/favicon.png" /> -->
+    
+        <link rel="stylesheet" href="main.css">
+
+        <style>
+          h2, ul {
+            padding: 1rem;
+          }
+          header > div, .nav-items {
+            padding: 0rem;
+          }
+          li {
+            list-style: circle;
+            margin-left: 1rem;
+          }
+          img {
+            margin-left: 1rem;
+          }
+          .nav-item {
+            list-style: none;
+          }
+          .author {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+          }
+          .author img {
+            width: 100px;
+            height: 100px;
+            /* border-radius: 50%; */     /* circles */
+            border-radius: 10px;          /* squares */
+            margin-right: 20px;
+            object-fit: cover;
+          }
+          .author .bio {
+            flex: 1;
+          }
+          /* https://stackoverflow.com/a/16299904/2377454 */
+          .center {
+              margin: auto;
+              width: 60%;
+              border: 3px solid white;
+              padding: 10px;
+          }
+        </style>
+    </head>
+    <body>
+      <div class="above-header">
+        <div class="demo-name">Cyclerank: Improving Personalized Relevance Scores in Directed Graphs</div>
+      </div>
+        <header id="myHeader">
+            <nav class="navbar">
+                <ul class="nav-items">
+                    <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
+                    <li class="nav-item"><a href="compare.html" class="nav-link">TRY IT OUT</a></li>
+                    <li class="nav-item"><a href="examples.html" class="nav-link">EXAMPLES</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">ABOUT</a></li>
+                    <li class="nav-item"><a href="algorithms.html" class="nav-link">ALGORITHMS</a></li>
+                    <li class="nav-item"><a href="instructions.html" class="nav-link">INSTRUCTIONS</a></li>
+                    <li class="nav-item"><a href="video.html" class="nav-link">VIDEO</a></li>
+                </ul>
+            </nav>
+            <label id="switch" class="switch">
+                <input type="checkbox" onchange="toggleTheme()" id="slider">
+                <span class="slider round"></span>
+            </label>
+            <div class="menu-toggle">
+              <i class="bx bx-menu"></i>
+              <i class="bx bx-x"></i>
+            </div>
+        </header>
+
+        <h2>Video</h2>
+
+            <!-- https://stackoverflow.com/a/72196771/2377454 -->
+            <div class="center">
+                <!-- https://www.geeksforgeeks.org/how-to-insert-video-in-web-page-and-play-it-using-html/ -->
+                <video id="autoplay" width="100%" controls="controls">
+                  <source src="video.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <script>
+                    window.onload = function(){
+                      document.getElementById("autoplay").play()
+                    }
+                </script>
+            </div>
+
+    <script src="vis-network.min.js"></script>
+    <script src="compare.js"></script>
+    <script src="animations.js"></script>
+</body>
+</html>

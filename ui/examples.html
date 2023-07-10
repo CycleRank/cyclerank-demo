@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cyclerank demo :: Examples</title>
+
+    <script src="config.js"></script>
+    <meta name="author" content="cristian.consonni@eurecat.org,mb@martinbrugnara.it,luca.cavalcanti@studenti.unitn.it">
+
+    <!-- <link rel="icon" href="images/favicon.png" /> -->
+
+    <link rel="stylesheet" href="main.css">
+
+    <style>
+        header {
+            margin-bottom: 32px;
+        }
+        h2 {
+          padding: 1rem;
+          margin-bottom: 2rem;
+        }
+        img {
+          margin-left: 1rem;
+        }
+        .example {
+          display: flex;
+          align-items: center;
+          margin: 20px;
+        }
+        .example img {
+          /* border-radius: 50%; */     /* circles */
+          border-radius: 10px;          /* squares */
+          margin-right: 20px;
+          object-fit: fill;
+        }
+        .example .explanation {
+          flex: 1;
+        }
+      </style>
+</head>
+<body>
+    <div class="above-header">
+        <div class="demo-name">Cyclerank: Improving Personalized Relevance Scores in Directed Graphs</div>
+    </div>
+    <header id="myHeader">
+        <nav class="navbar">
+            <ul class="nav-items">
+                <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
+                <li class="nav-item"><a href="compare.html" class="nav-link">TRY IT OUT</a></li>
+                <li class="nav-item"><a href="examples.html" class="nav-link">EXAMPLES</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">ABOUT</a></li>
+                <li class="nav-item"><a href="algorithms.html" class="nav-link">ALGORITHMS</a></li>
+                <li class="nav-item"><a href="instructions.html" class="nav-link">INSTRUCTIONS</a></li>
+                <li class="nav-item"><a href="video.html" class="nav-link">VIDEO</a></li>
+            </ul>
+        </nav>
+        <label id="switch" class="switch">
+            <input type="checkbox" onchange="toggleTheme()" id="slider">
+            <span class="slider round"></span>
+        </label>
+        <div class="menu-toggle">
+          <i class="bx bx-menu"></i>
+          <i class="bx bx-x"></i>
+        </div>
+    </header>
+
+    <h2 id="examplesh2">Reasons why we felt this demo was needed.</h2>
+
+    <div class="example" id="prob_example">
+        <img src="./images/theProblem.jpg" alt="The Problem" style="width: 600px; height: 350px;">
+        <div class="explanation">
+            <h3>The Problem</h2>
+                <br />
+                <p> Surfing the links between Wikipedia articles constitutes a valuable way to acquire new knowledge related to
+                    a topic by exploring its connections to other pages.
+                    Personalized PageRank is a well-known option to make sense of the graph of links between pages, and identify the most relevant articles with respect to a given one; its performance, however, is hindered by pages with high indegree that function as hubs and obtain high scores regardless of the
+                    starting point.
+                    <br /><br />
+                    <a href="compare.html?cmpid=870be217-2e17-4390-8255-f3948d6c30ee" target="_blank">See the results in detail.</a>
+                    One can easily notice how prominent the node "World War II" is, even though the source node for the Personalized PageRank was "Fake news".
+                </p>
+
+        </div>
+    </div>
+
+    <div class="example" id="sol_example">
+        <div class="explanation">
+            <h3>Our Solution</h2>
+                <br />
+                <p> The solution is found in CycleRank, a novel algorithm based on cyclic paths aimed at finding the most relevant nodes related to a topic.
+                <br /><br />
+                <a href="compare.html?cmpid=c36ad29f-d98b-48d8-956b-003cbbbded2f" target="_blank">See the results in details.</a>
+                CycleRank easily overcomes the above-mentioned issue. The same query launched with this new algorithm, source node "Fake news" and max cycle length 3 leads to results that aren't polluted by high in-degree articles.
+                </p>
+
+        </div>
+        <img src="./images/theSolution.jpg" alt="Our Solution" style="width: 300px; height: 350px;">
+    </div>
+
+    <div class="example" id="curious_example">
+        <img src="./images/forTheCurious.jpg" alt="For the curious" style="width: 800px; height: 300px;">
+        <div class="explanation">
+            <h3>For the Curious</h2>
+                <br />
+                <p> This demo is capable of showing the results of the PageRank,
+                    Single Source Personalized PageRank and Cyclerank algorithms, but doesn't stop there.
+                    Two other algorithms are implemented: CheiRank and 2DRank, both in their personalized and normal forms.
+                    CheiRank, depending on which version is chosen, runs the PageRank or the Single Source PageRank
+                    algorithm on the transposed version of the graph.
+                    2DRank combines the results of the PageRank algorithm with the ones of the CheiRank algorithm, thus
+                    creating better rankings at the cost of longer computation time.
+                    <br /><br />
+                    <a href="compare.html?cmpid=dabef4e5-52c9-43a5-8da7-1177b0ad1b6d" target="_blank">See the results in details.</a>
+                    This set of queries show how these other algorithms perform on the same dataset and node as the queries shown before.
+                </p>
+
+        </div>
+    </div>
+
+    <!-- <div id="output">
+    </div>
+
+    <div id="big-g"></div> -->
+
+    <script src="vis-network.min.js"></script>
+    <script src="compare.js"></script>
+    <script src="animations.js"></script>
+</body>
+</html>

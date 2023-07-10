@@ -1,0 +1,51 @@
+version: '3'
+
+# project name
+# https://docs.docker.com/compose/reference/
+#   #use--p-to-specify-a-project-name
+name: cyclerank-production
+
+services:
+  api:
+    build:
+      context: images
+      dockerfile: ./Dockerfile.api
+      args:
+        download_data: true
+        download_output: true
+    image: cyclerank/cyclerank-api:latest
+    container_name: production-cyclerank-api
+    volumes:
+      - cyclerank_data:/usr/share/cyclerank-api/data
+      - cyclerank_output:/usr/share/cyclerank-api/output
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/v0/datasets"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  web:
+    build:
+      context: images
+      dockerfile: ./Dockerfile.web
+    image: cyclerank/cyclerank-web:latest
+    container_name: production-cyclerank-web
+    ports:
+      - "$PRODUCTION_WEB_PORT:80"
+    depends_on:
+      - api
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  default:
+    name: production-cyclerank-network
+
+volumes:
+  cyclerank_data:
+  cyclerank_output:

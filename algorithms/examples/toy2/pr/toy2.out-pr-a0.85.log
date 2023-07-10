@@ -1,0 +1,19 @@
+[2023-03-05 19:51:04.001] [console] [info] Log start!
+[2023-03-05 19:51:04.001] [console] [debug] input_file: examples/toy2/toy2.in.txt
+[2023-03-05 19:51:04.001] [console] [debug] verbose: true
+[2023-03-05 19:51:04.001] [console] [debug] debug: true
+[2023-03-05 19:51:04.001] [console] [debug] alpha: 0.85
+[2023-03-05 19:51:04.001] [console] [debug] firstline_count: 4
+[2023-03-05 19:51:04.001] [console] [info] N: 14
+[2023-03-05 19:51:04.001] [console] [info] M: 21
+[2023-03-05 19:51:04.001] [console] [debug] reading graph...
+[2023-03-05 19:51:04.001] [console] [debug] --> read graph
+[2023-03-05 19:51:04.001] [console] [debug] reading labels...
+[2023-03-05 19:51:04.001] [console] [debug] --> read labels
+[2023-03-05 19:51:04.001] [console] [info] Pagerank (alpha=0.85)
+[2023-03-05 19:51:04.001] [console] [debug] Calculating the Pagerank on the graph: 
+[2023-03-05 19:51:04.001] [console] [debug]   * on the input graph
+[2023-03-05 19:51:04.001] [console] [debug]   * on the directed graph
+[2023-03-05 19:51:04.001] [console] [debug] num_edges: 21
+[2023-03-05 19:51:04.001] [console] [debug] PR ret: 0
+[2023-03-05 19:51:04.001] [console] [info] Log stop!

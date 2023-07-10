@@ -1,0 +1,21 @@
+[2023-03-05 19:45:47.920] [console] [info] Log start!
+[2023-03-05 19:45:47.920] [console] [debug] input_file: examples/toy2/toy2.in.txt
+[2023-03-05 19:45:47.920] [console] [debug] verbose: true
+[2023-03-05 19:45:47.920] [console] [debug] debug: true
+[2023-03-05 19:45:47.920] [console] [debug] alpha: 0.85
+[2023-03-05 19:45:47.920] [console] [debug] firstline_count: 4
+[2023-03-05 19:45:47.920] [console] [info] N: 14
+[2023-03-05 19:45:47.920] [console] [info] M: 21
+[2023-03-05 19:45:47.920] [console] [debug] reading graph...
+[2023-03-05 19:45:47.920] [console] [debug] --> read graph
+[2023-03-05 19:45:47.920] [console] [debug] reading labels...
+[2023-03-05 19:45:47.920] [console] [debug] --> read labels
+[2023-03-05 19:45:47.920] [console] [info] Pagerank and CheiRank (alpha=0.85)
+[2023-03-05 19:45:47.920] [console] [debug] Calculating the Pagerank on the graph: 
+[2023-03-05 19:45:47.920] [console] [debug] num_edges: 21
+[2023-03-05 19:45:47.920] [console] [debug] PR ret: 0
+[2023-03-05 19:45:47.920] [console] [debug] Calculating the CheiRank on the graph: 
+[2023-03-05 19:45:47.920] [console] [debug] num_edges: 21
+[2023-03-05 19:45:47.920] [console] [debug] CHEIR ret: 0
+[2023-03-05 19:45:47.920] [console] [debug] Sorting pr and cheirank results
+[2023-03-05 19:45:47.920] [console] [info] Log stop!

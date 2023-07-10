@@ -1,0 +1,44 @@
+# The project binary
+/cyclerank-api
+
+# ignore deployment environment file
+/.environment
+
+# ignore input and output files
+/input*.txt
+/output*.txt
+
+# ignore some datasets
+/data/*wiki.wikigraph.*.ini
+/data/*wiki.wikigraph.*.csv
+/data/8m.ini
+/data/8m.txt
+/data/cop27.ini
+/data/cop27.txt
+/data/amazon-meta.labeled.txt
+/data/amazon-meta.labeled.ini
+
+# ignore output dir contents
+/output/*
+!/output/.gitkeep
+
+# queries used in the homepage as examples (hideous, I know)
+
+# unfinished or unrefined datasets
+/data-unfinished/*
+
+# generic binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# test binary, built with `go test -c`
+*.test
+
+# output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# vim
+*.sw?

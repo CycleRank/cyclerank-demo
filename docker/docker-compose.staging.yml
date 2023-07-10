@@ -1,0 +1,48 @@
+version: '3'
+
+# project name
+# https://docs.docker.com/compose/reference/
+#   #use--p-to-specify-a-project-name
+name: cyclerank-staging
+
+services:
+  api:
+    build:
+      context: images
+      dockerfile: ./Dockerfile.api
+      args:
+        download_data: false
+        download_output: false
+    image: cyclerank/cyclerank-api-staging:latest
+    container_name: staging-cyclerank-api
+    volumes:
+      -  "$STAGING_DATA_HOST_DIR:/usr/share/cyclerank-api/data"
+      -  "$STAGING_OUTPUT_HOST_DIR:/usr/share/cyclerank-api/output"
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:8080/v0/datasets"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  web:
+    build:
+      context: images
+      dockerfile: ./Dockerfile.web
+    image: cyclerank/cyclerank-web-staging:latest
+    container_name: staging-cyclerank-web
+    ports:
+      - "$STAGING_WEB_PORT:80"
+      - "$STAGING_API_PORT:81"
+    depends_on:
+      - api
+    restart: on-failure
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  default:
+    name: staging-cyclerank-network

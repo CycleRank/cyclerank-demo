@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cyclerank demo :: compare</title>
+
+    <script src="config.js"></script>
+    <meta name="author" content="cristian.consonni@eurecat.org,mb@martinbrugnara.it,luca.cavalcanti@studenti.unitn.it">
+
+    <!-- <link rel="icon" href="images/favicon.png" /> -->
+
+    <link rel="stylesheet" href="main.css">
+
+    <style>
+    </style>
+</head>
+<body>
+    <div class="above-header">
+        <div class="demo-name">Cyclerank: Improving Personalized Relevance Scores in Directed Graphs</div>
+    </div>
+    <header id="myHeader">
+        <nav class="navbar">
+            <ul class="nav-items">
+                <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
+                <li class="nav-item"><a href="compare.html" class="nav-link">TRY IT OUT</a></li>
+                <li class="nav-item"><a href="examples.html" class="nav-link">EXAMPLES</a></li>
+                <li class="nav-item"><a href="about.html" class="nav-link">ABOUT</a></li>
+                <li class="nav-item"><a href="algorithms.html" class="nav-link">ALGORITHMS</a></li>
+                <li class="nav-item"><a href="instructions.html" class="nav-link">INSTRUCTIONS</a></li>
+                <li class="nav-item"><a href="video.html" class="nav-link">VIDEO</a></li>
+            </ul>
+        </nav>
+        <label id="switch" class="switch">
+            <input type="checkbox" onchange="toggleTheme()" id="slider">
+            <span class="slider round"></span>
+        </label>
+        <div class="menu-toggle">
+          <i class="bx bx-menu"></i>
+          <i class="bx bx-x"></i>
+        </div>
+    </header>
+    <article name="main" id="main">
+        <section id="existing">
+            <div class="block-summary">
+                <button label="show history" aria-expanded="true" class="block-summary-control" onclick="showBlock('tbl-scroller')">
+                        <a class="block-summary-link nostyle" href="#/history">
+                            <h3><span class="block-summary-text">History</span></h3>
+                        </a>                        
+                </button>
+            </div>
+
+            <div id="tbl-scroller" style="display: block;">
+                <h3><a href="#existing" id="load-pre" class="reload nostyle">&#8635;</a></h3>
+                <table id="history">
+                </table>
+            </div>
+        </section>
+        <section name="exec" id="exec">
+            <div class="block-summary">
+                <button label="show queries" class="block-summary-control" onclick="showBlock('exec_f', 'query_set_div')">
+                    <span class="block-summary-name">
+                        <a class="block-summary-link nostyle" href="#/queries">
+                            <h3><span class="block-summary-text">Create Queries</span></h3>
+                        </a>
+                    </span>
+                </button>
+            </div>
+            <form id="exec_f" style="display: block;">
+                <div class="f-v">
+                    <div class="f-h"><span class="t">Datasets:</span><h3><a href="#" id="ds-upload" class="nostyle">upload</a></h3></div><h3><a href="#" id="ds-reload" class="nostyle">&#8635;</a></h3></div>
+                    <div class="f-lst">
+                    <table id="ds-lst">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th onclick="sortTable(1)">Name &#x25be;</th>
+                                <th>Info</th>
+                                <th onclick="sortTable(3)">Nodes &#x25b4;&#x25be;</th>
+                                <th onclick="sortTable(4)">Edges &#x25b4;&#x25be;</th>
+                                <th onclick="sortTable(5)">Size (kB) &#x25b4;&#x25be;</th>
+                                <!-- <th></th>  use this th if you want the reload icon -->
+                            </tr>
+                        </thead>
+                        <tbody id="ds-lst-body">
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+                <div class="f-v">
+                    <span class="t">Algorithms:</span>
+                    <table>
+                        <tbody>
+                            <!-- checkbox.name: "a$api_path", input.name: "a$api_path:param_name" -->
+                            <tr><td><input type="checkbox" name="a$cyclerank" id="a$cyclerank" checked></td><td><label for="a$cyclerank">Cyclerank</label></td>
+                                <td>K <input type="number" name="a$cyclerank:maxloop" min="0" step="1" value="3"></td>
+                                <td>
+                                    Ranking: (<select name="a$cyclerank:scoring_function">
+                                        <option value="exp">exp</option>
+                                        <option value="lin">lin</option>
+                                        <option value="quad">quad</option>
+                                        <option value="log">log</option>
+                                    </select>)
+                                </td>
+                            </tr>
+                            <tr><td><input type="checkbox" name="a$pr" id="a$pr"></td><td><label for="a$pr">PageRank</label></td>
+                                <td>&alpha; <input type="number" min="0" max="1" step="0.01" name="a$pr:alpha" value="0.85"></td></tr>
+                            <tr><td><input type="checkbox" name="a$ssppr" id="a$ssppr"></td><td><label for="a$ssppr">Single Source Personalized PageRank</label></td>
+                                <td>&alpha; <input type="number" max="1" step="0.01"  name="a$ssppr:alpha" value="0.85"></td></tr>
+                            <tr><td><input type="checkbox" name="a$2dr" id="a$2dr"></td><td><label for="a$2dr">2dRank</label></td>
+                                <td>&alpha; <input type="number" max="1" step="0.01"  name="a$2dr:alpha" value="0.85"></td></tr>
+                            <tr><td><input type="checkbox" name="a$2drp" id="a$2drp"></td><td><label for="a$2drp">Single Source 2dRank</label></td>
+                                <td>&alpha; <input type="number" max="1" step="0.01"  name="a$2drp:alpha" value="0.85"></td></tr>
+                            <tr><td><input type="checkbox" name="a$cheir" id="a$cheir"></td><td><label for="a$cheir">CheiRank</label></td>
+                                <td>&alpha; <input type="number" max="1" step="0.01"  name="a$cheir:alpha" value="0.85"></td></tr>
+                            <tr><td><input type="checkbox" name="a$cheirp" id="a$cheirp"></td><td><label for="a$cheirp">Single Source CheiRank</label></td>
+                                <td>&alpha; <input type="number" max="1" step="0.01"  name="a$cheirp:alpha" value="0.85"></td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="f-v">
+                    <span class="t">Source</span>
+                    <input type="text" name="source" value="Internet">
+                    <br>
+                    <center>
+                        <button id="add" type="submit">Add to compare</button>
+                    </center>
+                </div>
+            </form>
+        </section>
+
+        <section id="cmp">
+            <div class="block-summary">
+                <button label="show query set" class="block-summary-control" onclick="showBlock('exec_f', 'query_set_div')">
+                    <span class="block-summary-name">
+                        <a class="block-summary-link nostyle" href="#/query_set">
+                            <h3><span class="block-summary-text">Query Set</span></h3>
+                        </a>
+                    </span>
+                </button>
+            </div>
+            <div id="query_set_div" style="display: block;">
+                <div id="queries">
+                </div>
+                <center><button type="submit" id="submit_job">Launch queries</button></center>
+            </div>
+        <section>
+    </article>
+
+    <div id="wait" style="display:none">
+        <div class="wait-black">
+            <h3>Please wait.</h3>
+            <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+
+    <div id="wait_results" style="display:none">
+        <div class="wait-black">
+            <h3>Loading results...</h3>
+            <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+        </div>
+    </div>
+
+    <div id="output">
+    </div>
+
+    <div id="big-g"></div>
+
+    <div id="upload-datasets" style="display:none" class="sg-hold">
+        <div id="inside-upload">
+            <h2 style="padding-top: 1rem;" onclick="spawnSpinner()">Upload a dataset</h2>
+
+            <article name="upload_article" id="upload_article">
+                <section id="upload_section">
+                    <form id="upload_form" style="display: block;" 
+                    enctype="multipart/form-data"
+                    action="http://localhost:8080/v0/upload"
+                    method="post"
+                    >
+                        <input type="file" id="file" name="file" accept=".csv, .txt, .gml">
+                        <br>
+                        <input type="radio" name="extension" class="radio" value="csv"> CSV 
+                        <input type="radio" name="extension" class="radio" value="txt" checked="true"> ASD 
+                        <input type="radio" name="extension" class="radio" value="gml"> GML 
+                        <input type="radio" name="extension" class="radio" value="pajek"> PAJEK 
+                        <br>
+                        <input type="text" name="description" class="description" value="Dataset's description">
+                        <br>
+                        <button id="upload_form_button" type="submit">Upload</button>
+                    </form>
+                </section>
+            </article>
+        </div>
+    </div>
+
+    <script src="vis-network.min.js"></script>
+    <script src="graphology.min.js"></script>
+    <script src="graphology-library.min.js"></script>
+    <script src="sigma.min.js"></script>
+    <script src="compare.js"></script>
+    <script src="animations.js"></script>
+</body>
+</html>

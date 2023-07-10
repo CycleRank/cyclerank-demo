@@ -1,0 +1,30 @@
+[2023-03-05 19:48:42.430] [console] [info] Log start!
+[2023-03-05 19:48:42.430] [console] [debug] input_file: examples/toy1/toy1.in.txt
+[2023-03-05 19:48:42.430] [console] [debug] verbose: true
+[2023-03-05 19:48:42.430] [console] [debug] debug: true
+[2023-03-05 19:48:42.430] [console] [debug] alpha: 0.85
+[2023-03-05 19:48:42.430] [console] [debug] firstline_count: 4
+[2023-03-05 19:48:42.430] [console] [debug] reading graph...
+[2023-03-05 19:48:42.430] [console] [debug] --> read graph
+[2023-03-05 19:48:42.430] [console] [debug] reading labels...
+[2023-03-05 19:48:42.430] [console] [debug] mapped node: 0
+[2023-03-05 19:48:42.430] [console] [debug] label: pippo
+[2023-03-05 19:48:42.430] [console] [debug] Mapped node is: 0
+[2023-03-05 19:48:42.430] [console] [debug] mapped node: 1
+[2023-03-05 19:48:42.430] [console] [debug] label: tizio
+[2023-03-05 19:48:42.430] [console] [debug] Mapped node is: 1
+[2023-03-05 19:48:42.430] [console] [debug] mapped node: 2
+[2023-03-05 19:48:42.430] [console] [debug] label: caio
+[2023-03-05 19:48:42.430] [console] [debug] Mapped node is: 2
+[2023-03-05 19:48:42.430] [console] [debug] mapped node: 3
+[2023-03-05 19:48:42.430] [console] [debug] label: sempronio
+[2023-03-05 19:48:42.430] [console] [debug] Mapped node is: 3
+[2023-03-05 19:48:42.430] [console] [debug] --> read labels
+[2023-03-05 19:48:42.430] [console] [info] N: 14
+[2023-03-05 19:48:42.430] [console] [info] M: 21
+[2023-03-05 19:48:42.430] [console] [info] S: 0
+[2023-03-05 19:48:42.430] [console] [info] Personalized CheiRank (alpha=0.85)
+[2023-03-05 19:48:42.430] [console] [debug] Calculating the Personalized CheiRank on the graph: 
+[2023-03-05 19:48:42.430] [console] [debug] num_edges: 21
+[2023-03-05 19:48:42.430] [console] [debug] CHEIR ret: 0
+[2023-03-05 19:48:42.432] [console] [info] Log stop!

@@ -1,0 +1,211 @@
+[2022-11-15 01:28:28.987] [console] [info] Log start!
+[2022-11-15 01:28:28.987] [console] [debug] input_file: examples/toy0.in.txt
+[2022-11-15 01:28:28.987] [console] [debug] verbose: false
+[2022-11-15 01:28:28.987] [console] [debug] debug: true
+[2022-11-15 01:28:28.987] [console] [debug] firstline_count: 4
+[2022-11-15 01:28:28.987] [console] [info] N: 14
+[2022-11-15 01:28:28.987] [console] [info] M: 21
+[2022-11-15 01:28:28.987] [console] [info] S: 0
+[2022-11-15 01:28:28.987] [console] [info] K: 3
+[2022-11-15 01:28:28.987] [console] [debug] reading graph...
+[2022-11-15 01:28:28.987] [console] [debug] --> read graph
+[2022-11-15 01:28:28.987] [console] [info] Step 1. BFS
+[2022-11-15 01:28:28.987] [console] [info] nodes: 14
+[2022-11-15 01:28:28.987] [console] [info] destroyed: 6
+[2022-11-15 01:28:28.987] [console] [info] remaining: 8
+[2022-11-15 01:28:28.987] [console] [debug] index map (1)
+[2022-11-15 01:28:28.987] [console] [debug] old2new.size() is 8
+[2022-11-15 01:28:28.987] [console] [debug] 0 => 0, 0 => 0
+[2022-11-15 01:28:28.987] [console] [debug] 1 => 1, 1 => 1
+[2022-11-15 01:28:28.987] [console] [debug] 2 => 2, 2 => 2
+[2022-11-15 01:28:28.987] [console] [debug] 3 => 3, 3 => 3
+[2022-11-15 01:28:28.987] [console] [debug] 4 => 4, 4 => 4
+[2022-11-15 01:28:28.987] [console] [debug] 9 => 5, 5 => 9
+[2022-11-15 01:28:28.987] [console] [debug] 10 => 6, 6 => 10
+[2022-11-15 01:28:28.987] [console] [debug] 11 => 7, 7 => 11
+[2022-11-15 01:28:28.987] [console] [debug] ~~~
+[2022-11-15 01:28:28.987] [console] [info] S: 0, newS: 0
+[2022-11-15 01:28:28.987] [console] [info] Step 2.: BFS on g^T
+[2022-11-15 01:28:28.987] [console] [info] nodes: 14
+[2022-11-15 01:28:28.987] [console] [info] destroyed: 8
+[2022-11-15 01:28:28.987] [console] [info] remaining: 6
+[2022-11-15 01:28:28.987] [console] [debug] newindex: 0
+[2022-11-15 01:28:28.987] [console] [debug] i: 0 - oldi: 0
+[2022-11-15 01:28:28.987] [console] [debug] tmp_new2old[0]: 0
+[2022-11-15 01:28:28.987] [console] [debug] tmp_old2new.insert(pair<int,int>(0, 0))
+[2022-11-15 01:28:28.987] [console] [debug] newindex: 1
+[2022-11-15 01:28:28.987] [console] [debug] i: 1 - oldi: 1
+[2022-11-15 01:28:28.987] [console] [debug] tmp_new2old[1]: 1
+[2022-11-15 01:28:28.987] [console] [debug] tmp_old2new.insert(pair<int,int>(1, 1))
+[2022-11-15 01:28:28.987] [console] [debug] newindex: 2
+[2022-11-15 01:28:28.987] [console] [debug] i: 2 - oldi: 2
+[2022-11-15 01:28:28.987] [console] [debug] tmp_new2old[2]: 2
+[2022-11-15 01:28:28.987] [console] [debug] tmp_old2new.insert(pair<int,int>(2, 2))
+[2022-11-15 01:28:28.987] [console] [debug] newindex: 3
+[2022-11-15 01:28:28.987] [console] [debug] i: 3 - oldi: 3
+[2022-11-15 01:28:28.987] [console] [debug] tmp_new2old[3]: 3
+[2022-11-15 01:28:28.987] [console] [debug] tmp_old2new.insert(pair<int,int>(3, 3))
+[2022-11-15 01:28:28.987] [console] [debug] newindex: 4
+[2022-11-15 01:28:28.987] [console] [debug] i: 4 - oldi: 4
+[2022-11-15 01:28:28.987] [console] [debug] tmp_new2old[4]: 4
+[2022-11-15 01:28:28.987] [console] [debug] tmp_old2new.insert(pair<int,int>(4, 4))
+[2022-11-15 01:28:28.987] [console] [debug] newindex: 5
+[2022-11-15 01:28:28.987] [console] [debug] i: 5 - oldi: 9
+[2022-11-15 01:28:28.987] [console] [debug] tmp_new2old[5]: 9
+[2022-11-15 01:28:28.987] [console] [debug] tmp_old2new.insert(pair<int,int>(9, 5))
+[2022-11-15 01:28:28.987] [console] [debug] *** tmp maps ***
+[2022-11-15 01:28:28.987] [console] [debug] tmp_old2new, tmp_new2old
+[2022-11-15 01:28:28.987] [console] [debug] tmp_old2new.size() is 6
+[2022-11-15 01:28:28.987] [console] [debug] 0 => 0, 0 => 0
+[2022-11-15 01:28:28.987] [console] [debug] 1 => 1, 1 => 1
+[2022-11-15 01:28:28.987] [console] [debug] 2 => 2, 2 => 2
+[2022-11-15 01:28:28.987] [console] [debug] 3 => 3, 3 => 3
+[2022-11-15 01:28:28.987] [console] [debug] 4 => 4, 4 => 4
+[2022-11-15 01:28:28.987] [console] [debug] 9 => 5, 5 => 9
+[2022-11-15 01:28:28.987] [console] [debug] *** maps BBB ***
+[2022-11-15 01:28:28.987] [console] [debug] old2new.size() is 8
+[2022-11-15 01:28:28.987] [console] [debug] old2new, new2old
+[2022-11-15 01:28:28.987] [console] [debug] 0 => 0, 0 => 0
+[2022-11-15 01:28:28.987] [console] [debug] 1 => 1, 1 => 1
+[2022-11-15 01:28:28.987] [console] [debug] 2 => 2, 2 => 2
+[2022-11-15 01:28:28.987] [console] [debug] 3 => 3, 3 => 3
+[2022-11-15 01:28:28.987] [console] [debug] 4 => 4, 4 => 4
+[2022-11-15 01:28:28.988] [console] [debug] 9 => 5, 5 => 9
+[2022-11-15 01:28:28.988] [console] [debug] 10 => 6, 6 => 10
+[2022-11-15 01:28:28.988] [console] [debug] 11 => 7, 7 => 11
+[2022-11-15 01:28:28.988] [console] [debug] ~~~
+[2022-11-15 01:28:28.988] [console] [debug] *** 1 ***
+[2022-11-15 01:28:28.988] [console] [debug] map indexes
+[2022-11-15 01:28:28.988] [console] [debug] old2new.size() is 6
+[2022-11-15 01:28:28.988] [console] [debug] 0 => 0, 0 => 0
+[2022-11-15 01:28:28.988] [console] [debug] 1 => 1, 1 => 1
+[2022-11-15 01:28:28.988] [console] [debug] 2 => 2, 2 => 2
+[2022-11-15 01:28:28.988] [console] [debug] 3 => 3, 3 => 3
+[2022-11-15 01:28:28.988] [console] [debug] 4 => 4, 4 => 4
+[2022-11-15 01:28:28.988] [console] [debug] 9 => 5, 5 => 9
+[2022-11-15 01:28:28.988] [console] [debug] ~~~
+[2022-11-15 01:28:28.988] [console] [info] S: 0, newS: 0
+[2022-11-15 01:28:28.988] [console] [debug] calling circuit()
+[2022-11-15 01:28:28.988] [console] [debug] count_calls: 7
+[2022-11-15 01:28:28.988] [console] [debug] called circuit()
+[2022-11-15 01:28:28.988] [console] [info] Log stop!
+[2023-03-05 19:38:30.522] [main_logger] [info] Log start!
+[2023-03-05 19:38:30.522] [main_logger] [debug] input_file: examples/toy0/toy0.in.txt
+[2023-03-05 19:38:30.522] [main_logger] [debug] verbose: true
+[2023-03-05 19:38:30.522] [main_logger] [debug] debug: true
+[2023-03-05 19:38:30.522] [main_logger] [debug] firstline_count: 2
+[2023-03-05 19:38:30.522] [main_logger] [debug] reading graph...
+[2023-03-05 19:38:30.522] [main_logger] [debug] --> read graph
+[2023-03-05 19:38:30.522] [main_logger] [debug] reading labels...
+[2023-03-05 19:38:30.522] [main_logger] [debug] --> read labels
+[2023-03-05 19:38:30.522] [main_logger] [info] N: 14
+[2023-03-05 19:38:30.522] [main_logger] [info] M: 21
+[2023-03-05 19:38:30.522] [main_logger] [info] S: 0
+[2023-03-05 19:38:30.522] [main_logger] [info] K: 4
+[2023-03-05 19:38:30.522] [main_logger] [info] R: exp
+[2023-03-05 19:38:30.522] [main_logger] [info] Step 1. BFS
+[2023-03-05 19:38:30.522] [main_logger] [info] nodes: 14
+[2023-03-05 19:38:30.522] [main_logger] [info] destroyed: 4
+[2023-03-05 19:38:30.522] [main_logger] [info] remaining: 10
+[2023-03-05 19:38:30.522] [main_logger] [debug] index map (1)
+[2023-03-05 19:38:30.522] [main_logger] [debug] old2new.size() is 10
+[2023-03-05 19:38:30.522] [main_logger] [debug] 0 => 0, 0 => 0
+[2023-03-05 19:38:30.522] [main_logger] [debug] 1 => 1, 1 => 1
+[2023-03-05 19:38:30.522] [main_logger] [debug] 2 => 2, 2 => 2
+[2023-03-05 19:38:30.522] [main_logger] [debug] 3 => 3, 3 => 3
+[2023-03-05 19:38:30.522] [main_logger] [debug] 4 => 4, 4 => 4
+[2023-03-05 19:38:30.522] [main_logger] [debug] 5 => 5, 5 => 5
+[2023-03-05 19:38:30.522] [main_logger] [debug] 9 => 6, 6 => 9
+[2023-03-05 19:38:30.522] [main_logger] [debug] 10 => 7, 7 => 10
+[2023-03-05 19:38:30.522] [main_logger] [debug] 11 => 8, 8 => 11
+[2023-03-05 19:38:30.522] [main_logger] [debug] 12 => 9, 9 => 12
+[2023-03-05 19:38:30.522] [main_logger] [debug] ~~~
+[2023-03-05 19:38:30.522] [main_logger] [info] S: 0, newS: 0
+[2023-03-05 19:38:30.522] [main_logger] [info] Step 2.: BFS on g^T
+[2023-03-05 19:38:30.522] [main_logger] [info] nodes: 14
+[2023-03-05 19:38:30.522] [main_logger] [info] destroyed: 8
+[2023-03-05 19:38:30.522] [main_logger] [info] remaining: 6
+[2023-03-05 19:38:30.522] [main_logger] [debug] newindex: 0
+[2023-03-05 19:38:30.522] [main_logger] [debug] i: 0 - oldi: 0
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_new2old[0]: 0
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(0, 0))
+[2023-03-05 19:38:30.522] [main_logger] [debug] newindex: 1
+[2023-03-05 19:38:30.522] [main_logger] [debug] i: 1 - oldi: 1
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_new2old[1]: 1
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(1, 1))
+[2023-03-05 19:38:30.522] [main_logger] [debug] newindex: 2
+[2023-03-05 19:38:30.522] [main_logger] [debug] i: 2 - oldi: 2
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_new2old[2]: 2
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(2, 2))
+[2023-03-05 19:38:30.522] [main_logger] [debug] newindex: 3
+[2023-03-05 19:38:30.522] [main_logger] [debug] i: 3 - oldi: 3
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_new2old[3]: 3
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(3, 3))
+[2023-03-05 19:38:30.522] [main_logger] [debug] newindex: 4
+[2023-03-05 19:38:30.522] [main_logger] [debug] i: 4 - oldi: 4
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_new2old[4]: 4
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(4, 4))
+[2023-03-05 19:38:30.522] [main_logger] [debug] newindex: 5
+[2023-03-05 19:38:30.522] [main_logger] [debug] i: 6 - oldi: 9
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_new2old[5]: 9
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_old2new.insert(pair<int,int>(9, 5))
+[2023-03-05 19:38:30.522] [main_logger] [debug] *** tmp maps ***
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_old2new, tmp_new2old
+[2023-03-05 19:38:30.522] [main_logger] [debug] tmp_old2new.size() is 6
+[2023-03-05 19:38:30.522] [main_logger] [debug] 0 => 0, 0 => 0
+[2023-03-05 19:38:30.522] [main_logger] [debug] 1 => 1, 1 => 1
+[2023-03-05 19:38:30.522] [main_logger] [debug] 2 => 2, 2 => 2
+[2023-03-05 19:38:30.522] [main_logger] [debug] 3 => 3, 3 => 3
+[2023-03-05 19:38:30.522] [main_logger] [debug] 4 => 4, 4 => 4
+[2023-03-05 19:38:30.522] [main_logger] [debug] 9 => 5, 5 => 9
+[2023-03-05 19:38:30.522] [main_logger] [debug] *** maps BBB ***
+[2023-03-05 19:38:30.522] [main_logger] [debug] old2new.size() is 10
+[2023-03-05 19:38:30.522] [main_logger] [debug] old2new, new2old
+[2023-03-05 19:38:30.522] [main_logger] [debug] 0 => 0, 0 => 0
+[2023-03-05 19:38:30.522] [main_logger] [debug] 1 => 1, 1 => 1
+[2023-03-05 19:38:30.522] [main_logger] [debug] 2 => 2, 2 => 2
+[2023-03-05 19:38:30.522] [main_logger] [debug] 3 => 3, 3 => 3
+[2023-03-05 19:38:30.522] [main_logger] [debug] 4 => 4, 4 => 4
+[2023-03-05 19:38:30.522] [main_logger] [debug] 5 => 5, 5 => 5
+[2023-03-05 19:38:30.522] [main_logger] [debug] 9 => 6, 6 => 9
+[2023-03-05 19:38:30.522] [main_logger] [debug] 10 => 7, 7 => 10
+[2023-03-05 19:38:30.522] [main_logger] [debug] 11 => 8, 8 => 11
+[2023-03-05 19:38:30.522] [main_logger] [debug] 12 => 9, 9 => 12
+[2023-03-05 19:38:30.522] [main_logger] [debug] ~~~
+[2023-03-05 19:38:30.522] [main_logger] [debug] *** 1 ***
+[2023-03-05 19:38:30.522] [main_logger] [info] S: 0, S1: 0, S2: 0
+[2023-03-05 19:38:30.522] [main_logger] [debug] map indexes
+[2023-03-05 19:38:30.522] [main_logger] [debug] old2new.size() is 6
+[2023-03-05 19:38:30.522] [main_logger] [debug] 0 => 0, 0 => 0
+[2023-03-05 19:38:30.522] [main_logger] [debug] 1 => 1, 1 => 1
+[2023-03-05 19:38:30.522] [main_logger] [debug] 2 => 2, 2 => 2
+[2023-03-05 19:38:30.522] [main_logger] [debug] 3 => 3, 3 => 3
+[2023-03-05 19:38:30.522] [main_logger] [debug] 4 => 4, 4 => 4
+[2023-03-05 19:38:30.522] [main_logger] [debug] 9 => 5, 5 => 9
+[2023-03-05 19:38:30.522] [main_logger] [debug] ~~~
+[2023-03-05 19:38:30.522] [main_logger] [debug] print_stdout is false
+[2023-03-05 19:38:30.522] [main_logger] [debug] opening specified output file
+[2023-03-05 19:38:30.531] [main_logger] [debug] calling circuit()
+[2023-03-05 19:38:30.531] [main_logger] [debug] remapped node 2 has score 0.0497871
+[2023-03-05 19:38:30.531] [main_logger] [debug] remapped node 1 has score 0.0497871
+[2023-03-05 19:38:30.531] [main_logger] [debug] remapped node 0 has score 0.0497871
+[2023-03-05 19:38:30.531] [main_logger] [debug] remapped node 4 has score 0.0497871
+[2023-03-05 19:38:30.531] [main_logger] [debug] remapped node 3 has score 0.0497871
+[2023-03-05 19:38:30.531] [main_logger] [debug] remapped node 0 has score 0.0995741
+[2023-03-05 19:38:30.531] [main_logger] [debug] remapped node 5 has score 0.135335
+[2023-03-05 19:38:30.531] [main_logger] [debug] remapped node 0 has score 0.234909
+[2023-03-05 19:38:30.531] [main_logger] [debug] remapped node 4 has score 0.0995741
+[2023-03-05 19:38:30.531] [main_logger] [debug] remapped node 5 has score 0.185122
+[2023-03-05 19:38:30.531] [main_logger] [debug] remapped node 0 has score 0.284696
+[2023-03-05 19:38:30.531] [main_logger] [debug] count_calls: 7
+[2023-03-05 19:38:30.531] [main_logger] [debug] called circuit()
+[2023-03-05 19:38:30.531] [main_logger] [debug] calling write_scores()
+[2023-03-05 19:38:30.531] [main_logger] [debug] graph has size 6
+[2023-03-05 19:38:30.531] [main_logger] [info] printing node 0: score 0.284696
+[2023-03-05 19:38:30.531] [main_logger] [info] printing node 1: score 0.0497871
+[2023-03-05 19:38:30.531] [main_logger] [info] printing node 2: score 0.0497871
+[2023-03-05 19:38:30.531] [main_logger] [info] printing node 3: score 0.0497871
+[2023-03-05 19:38:30.531] [main_logger] [info] printing node 4: score 0.0995741
+[2023-03-05 19:38:30.531] [main_logger] [info] printing node 9: score 0.185122
+[2023-03-05 19:38:30.531] [main_logger] [debug] called write_scores()
+[2023-03-05 19:38:30.531] [main_logger] [info] Log stop!

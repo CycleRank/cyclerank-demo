@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+        <script>
+function main() {
+    console.log("main");
+    let nodes = [
+        {"id": 0, "label": "Earth", "value": 6},
+        {"id": 1, "label": "Europe", "value": 4},
+
+        {"id": 2, "label": "Italy", "value": 3},
+        {"id": 3, "label": "Milan", "value": 2},
+        {"id": 4, "label": "Roma", "value": 2, "group": "capitals"},
+
+        {"id": 5, "label": "Germany", "value": 3},
+        {"id": 6, "label": "Munich", "value": 2},
+        {"id": 7, "label": "Berlin", "value": 2, "group": "capitals"},
+
+        {"id": 8, "label": "Spain", "value": 3},
+        {"id": 9, "label": "Barcelona", "value": 2},
+        {"id": 10, "label": "Madrid", "value": 2, "group": "capitals"},
+    ];
+    let edges = [
+        {"from": 1,  "to": 0},
+        {"from": 2,  "to": 1},
+        {"from": 3,  "to": 2},
+        {"from": 4,  "to": 2},
+        {"from": 5,  "to": 1},
+        {"from": 6,  "to": 5},
+        {"from": 7,  "to": 5},
+        {"from": 8,  "to": 1},
+        {"from": 9,  "to": 8},
+        {"from": 10, "to": 8},
+    ];
+
+    let options = {
+        nodes:{
+            color: '#ffffff',
+            fixed: false,
+            font: {
+            // WTF: this option has higher priority then `scaling` and `groups`.
+            //      Do not set anything you want dynamic.
+                face: '"Varela Round", Helvetica, Arial, sans-serif',
+            },
+            scaling: {
+                label: true
+            },
+            shadow: true,
+            shape: 'dot',
+            margin: 10,
+            scaling: {
+                label: {
+                    enabled: true,
+                    min: 14,
+                    max: 24,
+                }
+            }
+        },
+        edges: {
+            arrows: 'to',
+            color: 'black',
+            scaling: {
+                label: true,
+            },
+            shadow: true,
+        },
+        groups: {
+            capitals: {
+                color: {
+                    background: '#537FE7',
+                },
+                font: {
+                    color: '#537FE7',
+                }
+            }
+        }
+    };
+
+    let net = new vis.Network(document.getElementById('g'), {
+        nodes: nodes,
+        edges: edges,
+    }, options);
+};
+window.addEventListener("load", () => { main(); });
+
+        </script>
+        <style type="text/css">
+        #g {
+            width: 600px;
+            height: 400px;
+            border: 1px solid lightgray;
+        }
+        </style>
+    </head>
+    <body>
+        <div id="g">
+        </div>
+    </body>
+</html>

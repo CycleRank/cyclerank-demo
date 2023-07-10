@@ -1,0 +1,21 @@
+[2023-03-05 19:43:19.508] [console] [info] Log start!
+[2023-03-05 19:43:19.508] [console] [debug] input_file: examples/toy0/toy0.in.txt
+[2023-03-05 19:43:19.508] [console] [debug] verbose: true
+[2023-03-05 19:43:19.508] [console] [debug] debug: true
+[2023-03-05 19:43:19.508] [console] [debug] alpha: 0.3
+[2023-03-05 19:43:19.508] [console] [debug] firstline_count: 2
+[2023-03-05 19:43:19.508] [console] [debug] reading graph...
+[2023-03-05 19:43:19.508] [console] [debug] --> read graph
+[2023-03-05 19:43:19.508] [console] [debug] reading labels...
+[2023-03-05 19:43:19.508] [console] [debug] --> read labels
+[2023-03-05 19:43:19.508] [console] [info] N: 14
+[2023-03-05 19:43:19.508] [console] [info] M: 21
+[2023-03-05 19:43:19.508] [console] [info] S: 0
+[2023-03-05 19:43:19.508] [console] [info] Running on the whole network
+[2023-03-05 19:43:19.508] [console] [info] Pagerank (alpha=0.3)
+[2023-03-05 19:43:19.508] [console] [debug] Calculating the Pagerank on the graph: 
+[2023-03-05 19:43:19.508] [console] [debug]   * on the input graph
+[2023-03-05 19:43:19.508] [console] [debug]   * on the directed graph
+[2023-03-05 19:43:19.508] [console] [debug] num_edges: 21
+[2023-03-05 19:43:19.508] [console] [debug] SSPPR ret: 0
+[2023-03-05 19:43:19.508] [console] [info] Log stop!

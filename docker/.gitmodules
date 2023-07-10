@@ -1,0 +1,8 @@
+[submodule "api"]
+	path = images/api
+	url = git@bitbucket.org:CristianCantoro/cyclerank-api.git
+	branch = api
+[submodule "algos"]
+	path = images/algos
+	url = git@bitbucket.org:CristianCantoro/cyclerank.git
+	branch = api
