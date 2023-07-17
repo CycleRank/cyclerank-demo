@@ -142,7 +142,7 @@ void write_scores(int source, vector<nodo>& grafo, vector<int>& new2old, map<int
   }
   else {
 
-    map<float, int, greater<float>> orderedResults;
+    multimap<float, int, greater<float>> orderedResults;
     for (unsigned int i=0; i<grafo.size(); i++) {
       if (grafo[i].score != 0.0) {
         orderedResults.insert(pair<float, int>(grafo[i].score, i));

@@ -482,7 +482,7 @@ int main(int argc, char* argv[]) {
     outfp = fopen(output_file.c_str(), "w+");
   }
 
-  map<float, int, greater<float>> orderedResults;
+  multimap<float, int, greater<float>> orderedResults;
 
   for (unsigned int i=0; i<num_nodes; i++) {
     if (VECTOR(cheirpscore)[i] != 0.0) {
