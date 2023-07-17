@@ -1016,6 +1016,9 @@
         clean_job();
         refresh_job_view();
     });
+    
+    const upload_form = document.getElementById("upload_form");
+    upload_form.action = window.env.API_URL + "/v0/upload";
 
     document.getElementById("load-pre").addEventListener("click", load_history);
 
@@ -1164,6 +1167,7 @@ function draw_sigma(graph, div_id) {
 
         hideEdgesOnMove: true,
         hideLabelsOnMove: false,
+        // allowInvalidContainer: true,
         // maxEdgeSize: 0.5,
         // minEdgeSize: 0.2,
         // minCameraRatio: 0.75, // How far can we zoom out?
