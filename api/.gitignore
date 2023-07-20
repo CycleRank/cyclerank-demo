@@ -9,23 +9,20 @@
 /output*.txt
 
 # ignore some datasets
-/data/*wiki.wikigraph.*.ini
-/data/*wiki.wikigraph.*.csv
-/data/8m.ini
-/data/8m.txt
-/data/cop27.ini
-/data/cop27.txt
-/data/amazon-meta.labeled.txt
-/data/amazon-meta.labeled.ini
+# /data/*wiki.wikigraph.*.ini
+# /data/*wiki.wikigraph.*.csv
+# /data/8m.ini
+# /data/8m.txt
+# /data/cop27.ini
+# /data/cop27.txt
+# /data/amazon-meta.labeled.txt
+# /data/amazon-meta.labeled.ini
+/data/*
+!/data/.gitkeep
 
 # ignore output dir contents
 /output/*
 !/output/.gitkeep
-
-# queries used in the homepage as examples (hideous, I know)
-
-# unfinished or unrefined datasets
-/data-unfinished/*
 
 # generic binaries for programs and plugins
 *.exe
