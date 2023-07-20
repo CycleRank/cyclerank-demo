@@ -17,7 +17,7 @@ import (
 )
 
 var (
-    bin = flag.String("bin", "./bin", "Binaries folder")
+    bin = flag.String("bin", "../bin", "Binaries folder")
 
     // ErrQueryNotFound represents a failed query lookup by id
     ErrQueryNotFound = errors.New("query not found")

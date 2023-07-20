@@ -10,8 +10,8 @@ import (
 
 var (
 	addr       = flag.String("addr", ":8080", "[ip]:port")
-	repository = flag.String("repository", "data", "Dataset repository path")
-	outputDir  = flag.String("output_dir", "output", "Output directory path")
+	repository = flag.String("repository", "../data", "Dataset repository path")
+	outputDir  = flag.String("output_dir", "../output", "Output directory path")
 )
 
 func main() {

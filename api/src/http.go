@@ -808,6 +808,14 @@ func HTTPUploadFile(res http.ResponseWriter, req *http.Request) {
 	}
 	defer file.Close()
 
+	// TODO: is this enough as a safety measure? https://medium.com/@owlwalks/dont-parse-everything-from-client-multipart-post-golang-9280d23cd4ad
+	err = req.ParseMultipartForm(1 << 30) // 1Gb max size
+	if err != nil {
+		log.Printf("File size exceeds limits. Max size: 1Gb")
+		res.WriteHeader(http.StatusUnprocessableEntity)
+		return
+	}
+
 	// check if the file name is safe, using FieldSafePathRegexp defined in form.go
 	if !FieldSafePathRegexp.Match([]byte(header.Filename)) {
 		log.Printf("Unsafe file name")
@@ -852,14 +860,12 @@ func HTTPUploadFile(res http.ResponseWriter, req *http.Request) {
 		res.WriteHeader(http.StatusInternalServerError)
 		log.Printf("Internal error while opening new file to copy contents in: %s", err)
 		//fmt.Fprintln(res, err)
+		return
 	}
-	//fmt.Fprintf(res, "File uploaded successfully : ")
-	//fmt.Fprintf(res, header.Filename)
 
-	log.Printf("Uploaded file with name: %s, path: %s", header.Filename, newfilepath)
-	//add redirect
-	http.Redirect(res, req, "http://127.0.0.1:5500/tesi/cyclerank-api/ui/compare.html#", http.StatusSeeOther)
-	// res.WriteHeader(http.StatusOK)
+	// log.Printf("Uploaded file with name: %s, path: %s", header.Filename, newfilepath)
+	log.Printf("Uploaded file with name: %s, path: %s, description: %s, extension: %s", header.Filename, newfilepath, req.PostForm["description"][0], req.PostForm["extension"][0])
+	res.WriteHeader(http.StatusOK)
 }
 
 type DatasetInfo struct {
