@@ -19,7 +19,7 @@
     let full_names_dictionary = {
         'maxloop': 'K',
         'alpha': 'α',
-        'scoring_function': 'scoring function',
+        'scoring_function': 'Scoring function',
         'source': 'Source',
         'cyclerank': 'Cyclerank',
         'pr': 'PageRank',
@@ -111,6 +111,25 @@
             body: formEncode(data),
         });
         return response.json(); // parses JSON response into native JavaScript objects
+    };
+
+    async function post_file(url = "", data = {}) {
+        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+        const response = await fetch(url, {
+            method: "POST", // *GET, POST, PUT, DELETE, etc.
+            // mode: "cors", // no-cors, *cors, same-origin
+            mode: "cors", // no-cors, *cors, same-origin
+            cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+            // credentials: "same-origin", // include, *same-origin, omit
+
+            //omitting content type - the browser will fill in this info for us
+
+            redirect: "follow", // manual, *follow, error
+            referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+            // body: JSON.stringify(data), // body data type must match "Content-Type" header
+            body: data,
+        });
+        return response; // return raw response
     };
 
     async function get(url = "", data = {}) {
@@ -975,8 +994,8 @@
         let div = document.getElementById('upload-datasets');
         if (div) {
             console.log('showing hidden upload datasets');
-            div.style.display = 'block';
-            // div.style.left = '0vw';
+            div.style.display = 'flex';
+            document.getElementById('upload-result').style.display = 'none';
             enable_popup('upload-datasets');
             return;
         }
@@ -1017,9 +1036,55 @@
         refresh_job_view();
     });
     
-    const upload_form = document.getElementById("upload_form");
-    upload_form.action = window.env.API_URL + "/v0/upload";
+    let wait_for_upload = async function (formData) {
+        
+        // document.getElementById("upload-datasets").style.display = 'none';
+        window.scroll(0, window.pre_zoom_scroll_y || 0);
 
+        let spinner = document.getElementById("wait");
+        spinner.style.display = "block";
+        
+        console.log("attempting upload for ", formData);
+        await post_file(window.env.API_URL + "/v0/upload", formData).then(e => {
+            spinner.style.display = "none";
+            console.log("response: ", e);
+            // alert(e.statusText);
+            let upload_result_string = "";
+            switch (e.status) {
+                case 405:
+                    upload_result_string = "Wrong method, correct method is POST"
+                    break;
+                case 400:
+                    upload_result_string = "Please insert a file in the form"
+                    break;
+                case 422:
+                    upload_result_string = "File either already exists, exceeds 1Gb limit or has unsafe name"
+                    break;
+                case 500:
+                    upload_result_string = "Internal error"
+                    break;
+                case 200:
+                    upload_result_string = "Upload successful, reload the dataset list to see your file"
+                    break;
+            
+                default:
+                    upload_result_string = "Unknown response from server"
+                    break;
+            }
+            document.getElementById("upload-result").innerHTML = upload_result_string;
+            document.getElementById("upload-result").style.display = 'inline-block';
+        })
+
+    };
+    
+    const upload_form = document.getElementById("upload_form");
+    upload_form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(upload_form);
+        wait_for_upload(formData);
+        // location.reload();
+    });
+    
     document.getElementById("load-pre").addEventListener("click", load_history);
 
     window.query_cache = {};

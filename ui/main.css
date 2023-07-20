@@ -475,12 +475,28 @@ input:checked + .slider:before {
 
 #upload-datasets {
   text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+#upload-datasets-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: auto;
 }
 
 #inside-upload {
   display: inline-block;
   background-color: var(--dark-color);
-  margin-top: 20vh;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+#upload-result {
+  display: inline-block;
+  background-color: var(--dark-color);
+  margin-top: 5vh;
   padding: 1rem;
   border-radius: 8px;
 }
@@ -925,7 +941,8 @@ table.rqparam tr > td:first-child {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.3);  
+  z-index: 1;
 }
 
 .wait-white {
