@@ -30,6 +30,16 @@
         'cheirp': 'Single Source CheiRank',
     }
 
+    let algorithms_to_numbers = {
+        'Cyclerank'                             : 0,
+	    'PageRank'                              : 1,
+	    'Single Source Personalized PageRank'   : 2,
+	    '2dRank'                                : 3,
+	    'Single Source 2dRank'                  : 4,
+	    'CheiRank'                              : 5,
+	    'Single Source CheiRank'                : 6,
+	    'Subgraph Generator'                    : 7,
+    }
 
     let viz_g_opt = {
         nodes:{
@@ -370,6 +380,19 @@
         var ctx = {'job': job};
         // NOTE: from here on we cannot assume we the current job anymore.
 
+        // sort jobs by algorithm
+        job.tasks.sort(function(x,y) {
+            // console.log("x:", x, " ", x.algo, " ", algorithms_to_numbers[x.algo]);
+            // console.log("y:", y, " ", y.algo, " ", algorithms_to_numbers[y.algo]);
+            if (algorithms_to_numbers[full_names_dictionary[x.algo]] < algorithms_to_numbers[full_names_dictionary[y.algo]]) {
+                return -1;
+            }
+            if (algorithms_to_numbers[full_names_dictionary[x.algo]] > algorithms_to_numbers[full_names_dictionary[y.algo]]) {
+                return 1;
+            }
+            return 0;
+        });
+
         var ts = [];
         for (const j of job.tasks) {
             console.log("Invoking", j.algo, "with", j.data, 'src', j.src);
@@ -444,7 +467,7 @@
 
         if (!tasks) return;
         let jobid = ctx.job.id;
-
+        console.log("AAAAAAAAAAAAAAA: ", tasks);
         var buffer = [
             // FIXME: we may want to have a "date" here too
             '<p class="t job-t">',
@@ -915,6 +938,21 @@
         // ensure it completed
         let job = cmps[job_id];
 
+        console.log("Unsorted job: ", job);
+        // sort jobs by algorithm
+        job.sort(function(x,y) {
+            // console.log("x:", x, " ", x.params.algorithm, " ", algorithms_to_numbers[x.params.algorithm]);
+            // console.log("y:", y, " ", y.params.algorithm, " ", algorithms_to_numbers[y.params.algorithm]);
+            if (algorithms_to_numbers[x.params.algorithm] < algorithms_to_numbers[y.params.algorithm]) {
+                return -1;
+            }
+            if (algorithms_to_numbers[x.params.algorithm] > algorithms_to_numbers[y.params.algorithm]) {
+                return 1;
+            }
+            return 0;
+        });
+        console.log("Sorted job: ", job);
+
         // ignore subgraph generator
         var ts = [];
         for (const j of job){
@@ -1084,7 +1122,7 @@
         wait_for_upload(formData);
         // location.reload();
     });
-    
+
     document.getElementById("load-pre").addEventListener("click", load_history);
 
     window.query_cache = {};
