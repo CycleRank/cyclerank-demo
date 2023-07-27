@@ -826,9 +826,15 @@ func HTTPUploadFile(res http.ResponseWriter, req *http.Request) {
 	// check if file already exists: https://stackoverflow.com/questions/12518876/how-to-check-if-a-file-exists-in-go
 	var newfilepath = filepath.Join(*repository, header.Filename)
 
-	if _, err := os.Stat(newfilepath); err == nil {
+	// for the purpose of checking the file's existence we need to remove the extension, if specified
+	possible_filepath := newfilepath
+	if FormIsSet(req.PostForm, "extension") {
+		possible_filepath = strings.TrimSuffix(possible_filepath, req.PostForm["extension"][0]) + "txt"
+	}
+
+	if _, err := os.Stat(possible_filepath); err == nil {
 		// path/to/whatever exists
-		log.Printf("File already exists. Filepath: %s", newfilepath)
+		log.Printf("File already exists. Filepath: %s", possible_filepath)
 		res.WriteHeader(http.StatusUnprocessableEntity)
 		return
 
@@ -862,6 +868,35 @@ func HTTPUploadFile(res http.ResponseWriter, req *http.Request) {
 		//fmt.Fprintln(res, err)
 		return
 	}
+
+	description := "No info available for this dataset"
+	if FormIsSet(req.PostForm, "description") {
+		description = req.PostForm["description"][0]
+		if description == "" {
+			description = "No info available for this dataset"
+		}
+	}
+
+	if FormIsSet(req.PostForm, "extension") {
+		switch req.PostForm["extension"][0] {
+		case "csv":
+			ConvertAndCreateIniFile(newfilepath, "csvToTxtConverter.py", "csv", description)
+			newfilepath = strings.TrimSuffix(newfilepath, "csv") + "txt"
+		case "gml":
+			ConvertAndCreateIniFile(newfilepath, "gmlToTxtConverter.py", "gml", description)
+			newfilepath = strings.TrimSuffix(newfilepath, "gml") + "txt"
+		case "net":
+			ConvertAndCreateIniFile(newfilepath, "pajekToTxtConverter.py", "net", description)
+			newfilepath = strings.TrimSuffix(newfilepath, "net") + "txt"
+		case "txt":
+			CreateIniFile(newfilepath, description)
+		}
+	} else {
+		// we assume that the user is uploading a file in asd format
+		// log.Printf("Creating ini file for file with name: %s, path: %s", newfilepath, *repository)
+		CreateIniFile(newfilepath, description)
+	}
+
 
 	// log.Printf("Uploaded file with name: %s, path: %s", header.Filename, newfilepath)
 	log.Printf("Uploaded file with name: %s, path: %s, description: %s, extension: %s", header.Filename, newfilepath, req.PostForm["description"][0], req.PostForm["extension"][0])

@@ -211,6 +211,49 @@ func SetupIniFile(q Query, cfg *ini.File, fIniName string) error {
     return nil
 }
 
+// ConvertAndCreateIniFile converts a given file by calling a specified conversion script and then creates an appropriate ini file
+func ConvertAndCreateIniFile(filepath string, conversionScriptName string, extension string, description string) {
+    
+    cmd := exec.Command("python3", path.Join("../utils/", conversionScriptName), filepath, description, *repository)
+    cmd.Stdout = os.Stdout 
+    cmd.Stderr = os.Stderr
+
+    err := cmd.Start()
+    if err != nil {
+        os.Remove(filepath)
+        log.Fatalf("Error starting conversion script (%s) for: %s", conversionScriptName, filepath)
+    }
+
+    go func() {
+        if err := cmd.Wait(); err != nil {
+            log.Printf("Script %s exited with error: %s", conversionScriptName, err)
+            // on error, remove the txt and ini files that were being created
+            os.Remove(strings.TrimSuffix(filepath, extension) + "txt")
+            os.Remove(strings.TrimSuffix(filepath, extension) + "ini")
+        }
+        // remove old converted file
+        os.Remove(filepath)
+    }()
+}
+
+func CreateIniFile(filepath string, description string) {
+    
+    cmd := exec.Command("python3", path.Join("../utils/", "createIniFile.py"), filepath, description, *repository)
+    cmd.Stdout = os.Stdout 
+    cmd.Stderr = os.Stderr
+    err := cmd.Start()
+    if err != nil {
+        log.Fatalf("Error starting .ini creation script for: %s", filepath)
+    }
+
+    go func() {
+        if err := cmd.Wait(); err != nil {
+            log.Printf(".ini creation script exited with error: %s", err)
+            os.Remove(strings.TrimSuffix(filepath, "txt") + "ini")
+        }
+    }()
+}
+
 // Start allocates resources, like output file, and start async query.
 func Start(id uuid.UUID, q Query, fOut io.Writer, fLog io.Writer, callback func(), s *StatusRecorder, algorithm int) {
     // When killed by SIGTERM queries will be cleaned up and terminated
