@@ -1102,7 +1102,7 @@
                     upload_result_string = "Internal error"
                     break;
                 case 200:
-                    upload_result_string = "Upload successful, reload the dataset list to see your file"
+                    upload_result_string = "Upload accepted, please check the file upload section to check the file's status"
                     break;
             
                 default:

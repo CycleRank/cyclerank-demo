@@ -168,31 +168,32 @@
 
     <div id="upload-datasets" style="display:none" class="sg-hold">
         <div id="upload-datasets-column">
-            <div id="inside-upload">
-                <h2 style="padding-top: 1rem;">Upload a dataset</h2>
+            <div id="upload-form-container">
+                <div id="inside-upload">
+                    <h2 style="padding-top: 1rem;">Upload a dataset</h2>
 
-                <article name="upload_article" id="upload_article">
-                    <section id="upload_section">
-                        <!-- action="http://localhost:8080/v0/upload" -->
-                        <form id="upload_form" style="display: block;" 
-                        enctype="multipart/form-data"
-                        method="post"
-                        >
-                            <input type="file" id="file" name="file" accept=".csv, .txt, .gml">
-                            <br>
-                            <input type="radio" name="extension" class="radio" value="csv"> CSV 
-                            <input type="radio" name="extension" class="radio" value="txt" checked="true"> ASD 
-                            <input type="radio" name="extension" class="radio" value="gml"> GML 
-                            <input type="radio" name="extension" class="radio" value="pajek"> PAJEK 
-                            <br>
-                            <input type="text" name="description" class="description" placeholder="Dataset's description">
-                            <br>
-                            <button id="upload_form_button" type="submit">Upload</button>
-                        </form>
-                    </section>
-                </article>
+                    <article name="upload_article" id="upload_article">
+                        <section id="upload_section">
+                            <!-- action="http://localhost:8080/v0/upload" -->
+                            <form id="upload_form" style="display: block;" 
+                            enctype="multipart/form-data"
+                            method="post"
+                            >
+                                <input type="file" id="file" name="file" accept=".csv, .txt, .gml, .net">
+                                <br>
+                                <input type="radio" name="extension" class="radio" value="csv"> CSV 
+                                <input type="radio" name="extension" class="radio" value="txt" checked="true"> ASD 
+                                <input type="radio" name="extension" class="radio" value="gml"> GML 
+                                <input type="radio" name="extension" class="radio" value="net"> PAJEK 
+                                <br>
+                                <input type="text" name="description" class="description" placeholder="Dataset's description">
+                                <br>
+                                <button id="upload_form_button" type="submit">Upload</button>
+                            </form>
+                        </section>
+                    </article>
+                </div>
             </div>
-
             <div id="upload-result"></div>
         </div>
     </div>
