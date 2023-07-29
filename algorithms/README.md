@@ -15,15 +15,15 @@ Follow the tutorial here - https://igraph.org/c/html/0.10.1/igraph-Installation.
 
 ## Building the algorithms' binaries
 ```
-make all         Build all the binaries
-make cyclerank   Build cyclerank's binary
-make looprank    Build looprank's binary (old cyclerank version)
-make pr          Build pr's binary
-make ssppr       Build ssppr's binary
-make 2dr         Build 2dr's binary
-make 2drp        Build 2drp's binary
-make cheir       Build cheir's binary
-make cheirp      Build cheirp's binary
+make all                Build all the binaries
+make cyclerank          Build cyclerank's binary
+make looprank_old       Build looprank's binary (old cyclerank version)
+make pr                 Build pr's binary
+make ssppr              Build ssppr's binary
+make 2dr                Build 2dr's binary
+make 2drp               Build 2drp's binary
+make cheir              Build cheir's binary
+make cheirp             Build cheirp's binary
 make subgraphGenerator  Build subgraphGenerator's binary
 ```
 
@@ -46,46 +46,39 @@ Usage:
   -e, --scoring_function SCORING_FUNCTION
                                 Scoring function {exp, lin, quad, log}
                                 [default: exp].
+  -t, --top-results TOP_RESULTS
+                                Print the top-t results. [default: prints top
+                                1000 results].
 ----------------------------------------------------------------------------------
 bin/pr -h
   bin/pr [OPTION...]
 
-  -a, --alpha ALPHA           Damping factor (alpha).
-  -f, --file FILE             Input file.
-  -v, --verbose               Enable logging at verbose level.
-  -d, --debug                 Enable logging at debug level.
-  -h, --help                  Show help message and exit.
-  -l, --log LOG_FILE          Logfile [default: stderr].
-  -o, --output OUTPUT_FILE    Output file.
-  -t, --transposed            Run on the transposed network (incompatible
-                              with -u).
-  -u, --undirected            Run on the undirected network (incompatible
-                              with -t).
-  -b, --force-bfs-transposed  Force running the second BFS on the transposed
-                              network. This is needed only if -u is specified,
-                              otherwise it is effectively ignored.
+  -a, --alpha ALPHA             Damping factor (alpha).
+  -f, --file FILE               Input file.
+  -v, --verbose                 Enable logging at verbose level.
+  -d, --debug                   Enable logging at debug level.
+  -h, --help                    Show help message and exit.
+  -l, --log LOG_FILE            Logfile [default: stderr].
+  -o, --output OUTPUT_FILE      Output file.
+  -t, --top-results TOP_RESULTS
+                                Print the top-t results. [default: prints top
+                                1000 results].
 ----------------------------------------------------------------------------------
 bin/ssppr -h
 Usage:
   bin/ssppr [OPTION...]
 
-  -a, --alpha ALPHA           Damping factor (alpha).
-  -f, --file FILE             Input file.
-  -v, --verbose               Enable logging at verbose level.
-  -d, --debug                 Enable logging at debug level.
-  -h, --help                  Show help message and exit.
-  -k, --maxloop K             Set max loop length (K).
-  -l, --log LOG_FILE          Logfile [default: stderr].
-  -o, --output OUTPUT_FILE    Output file.
-  -s, --source S              Set source node (S).
-  -t, --transposed            Run on the transposed network (incompatible
-                              with -u).
-  -u, --undirected            Run on the undirected network (incompatible
-                              with -t).
-  -b, --force-bfs-transposed  Force running the second BFS on the transposed
-                              network. This is needed only if -u is specified,
-                              otherwise it is effectively ignored.
-  -w, --whole-network         Run on the whole network (ignore K).
+  -a, --alpha ALPHA             Damping factor (alpha).
+  -f, --file FILE               Input file.
+  -v, --verbose                 Enable logging at verbose level.
+  -d, --debug                   Enable logging at debug level.
+  -h, --help                    Show help message and exit.
+  -l, --log LOG_FILE            Logfile [default: stderr].
+  -o, --output OUTPUT_FILE      Output file.
+  -s, --source S                Set source node (S).
+  -t, --top-results TOP_RESULTS
+                                Print the top-t results. [default: prints top
+                                1000 results].
 ----------------------------------------------------------------------------------
 bin/2dr -h
 Usage:
@@ -98,6 +91,9 @@ Usage:
   -h, --help                Show help message and exit.
   -l, --log LOG_FILE        Logfile [default: stderr].
   -o, --output OUTPUT_FILE  Output file.
+  -t, --top-results TOP_RESULTS
+                                Print the top-t results. [default: prints top
+                                1000 results].
 ----------------------------------------------------------------------------------
 bin/2drp -h
 Usage:
@@ -111,6 +107,9 @@ Usage:
   -l, --log LOG_FILE        Logfile [default: stderr].
   -o, --output OUTPUT_FILE  Output file.
   -s, --source S            Set source node (S).
+  -t, --top-results TOP_RESULTS
+                                Print the top-t results. [default: prints top
+                                1000 results].
 ----------------------------------------------------------------------------------
 bin/cheir -h
 Usage:
@@ -123,6 +122,9 @@ Usage:
   -h, --help                Show help message and exit.
   -l, --log LOG_FILE        Logfile [default: stderr].
   -o, --output OUTPUT_FILE  Output file.
+  -t, --top-results TOP_RESULTS
+                                Print the top-t results. [default: prints top
+                                1000 results].
 ----------------------------------------------------------------------------------
 bin/cheirp -h
 Usage:
@@ -136,6 +138,9 @@ Usage:
   -l, --log LOG_FILE        Logfile [default: stderr].
   -o, --output OUTPUT_FILE  Output file.
   -s, --source S            Set source node (S).
+  -t, --top-results TOP_RESULTS
+                                Print the top-t results. [default: prints top
+                                1000 results].
 ----------------------------------------------------------------------------------
 bin/subgraphGenerator -h
 Usage:
