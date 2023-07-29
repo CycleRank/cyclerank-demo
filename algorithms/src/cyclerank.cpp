@@ -127,9 +127,9 @@ void compute_scores(vector<nodo>& grafo, stack<int> s, vector<int>& new2old, str
 }
 
 //when we finish calling circuit we can write all the computed scores
-void write_scores(int source, vector<nodo>& grafo, vector<int>& new2old, map<int,string>& old2label, ostream& out) {
+void write_scores(int source, vector<nodo>& grafo, vector<int>& new2old, map<int,string>& old2label, ostream& out, unsigned int top_results) {
   main_logger->debug("graph has size {}", grafo.size());
-  if (grafo[source].score == 0.0) {
+  if (grafo[source].score == 0.0 && top_results > 0) {
     // source node has score 0.0, therefore there are no cycles. Only print the source
     int oldSource = new2old[source];
 
@@ -148,8 +148,12 @@ void write_scores(int source, vector<nodo>& grafo, vector<int>& new2old, map<int
         orderedResults.insert(pair<float, int>(grafo[i].score, i));
       }
     }
-
+    
+    unsigned int scoresCounter = 1;
     for (const auto& node: orderedResults) {
+      if (scoresCounter > top_results) {
+        break;
+      }
       int i = node.second;
       int oldi = new2old[i];
       if (old2label.find(i) == old2label.end()) {
@@ -160,6 +164,7 @@ void write_scores(int source, vector<nodo>& grafo, vector<int>& new2old, map<int
         //node is present in label system
         out << oldi << "\t" << old2label[oldi] << "\t" << fixed << scientific << setprecision(10) << grafo[i].score << endl;
       }
+      scoresCounter++;
     }
 
     // for (unsigned int i = 0; i < grafo.size(); i++) {
@@ -367,6 +372,7 @@ int main(int argc, char* argv[]) {
   string scoring_function="exp";
   string cliS = "";
   int cliK = -1;
+  unsigned int top_results = 1000;
   bool verbose = false;
   bool debug = false;
   bool help = false;
@@ -412,6 +418,10 @@ int main(int argc, char* argv[]) {
       ("e,scoring_function", "Scoring function {exp, lin, quad, log} [default: exp].",
         cxxopts::value<string>(scoring_function),
         "SCORING_FUNCTION"
+       )
+      ("t,top-results", "Print the top-t results. [default: prints top 1000 results].",
+       cxxopts::value<unsigned int>(top_results),
+       "TOP_RESULTS"
        )
       ;
 
@@ -505,6 +515,8 @@ int main(int argc, char* argv[]) {
       in >> N >> M >> tmpS >> tmpK;
     } else if(nparam == 2) {
       in >> N >> M;
+      // set tmpK to default value 3, so that if K is not specified neither by cli and by file input, it defaults to said value
+      tmpK = 3;
     } else {
       cerr << "Error! Error while reading file (" << input_file \
           << "), unexpected number of parameters" << endl;
@@ -925,7 +937,7 @@ int main(int argc, char* argv[]) {
 
   if (!print_cycles) {
     main_logger->debug("calling write_scores()");
-    write_scores(newS, grafo, new2old, old2label, out);
+    write_scores(newS, grafo, new2old, old2label, out, top_results);
     main_logger->debug("called write_scores()");
   } 
 
