@@ -27,16 +27,17 @@ var (
 // The endpoints are responsible of sorting out the mandatory parameters.
 // The endpoints allow to avoid having a query call with parameters not accepted by an algorithm (example: ./pr -s 0 -k 3)
 type Query struct {
-    Algorithm        int // value used internally to determine the chosen algorithm
+    Algorithm        int     // value used internally to determine the chosen algorithm
     File             string
-    Query_to_analyze string // SubgraphGenerator attribute
-    Maxnodes         int64  // SubgraphGenerator attribute
-    Source           string // Cyclerank, Ssppr, Cheirp, 2drp attribute
-    MaxLoop          uint64 // Cyclerank attribute
+    Query_to_analyze string  // SubgraphGenerator attribute
+    Maxnodes         int64   // SubgraphGenerator attribute
+    Source           string  // Cyclerank, Ssppr, Cheirp, 2drp attribute
+    MaxLoop          uint64  // Cyclerank attribute
     Debug            bool
     Verbose          bool
     Scoring_function string  // Cyclerank attribute
     Alpha            float64 // Pr, Ssppr, Cheir, Cheirp, 2dr, 2drp attribute
+    Top_results      uint64  // value used by all algorithms except SubgraphGenerator
 }
 
 // parse the query's parameters given a correct query file name
@@ -78,6 +79,9 @@ func Parse(initfile string) Query {
     if querySection.HasKey("maxnodes") {
         query.Maxnodes, _ = querySection.Key("maxnodes").Int64()
     }
+    if querySection.HasKey("top_results") {
+        query.Top_results, _ = querySection.Key("top_results").Uint64()
+    }
 
     return query
 }
@@ -112,6 +116,9 @@ func PrettyFmt(q *Query) map[string]string {
     }
     if q.Maxnodes != -1 && q.Algorithm == SubgraphGenerator {
         mappedQuery["maxnodes"] = fmt.Sprint(q.Maxnodes)
+    }
+    if q.Top_results != 0 {
+        mappedQuery["top_results"] = fmt.Sprint(q.Top_results)
     }
 
     return mappedQuery
@@ -158,6 +165,9 @@ func Args(lpa Query) []string {
     }
     if lpa.Maxnodes != -1 && lpa.Algorithm == SubgraphGenerator {
         args = append(args, "--maxnodes", fmt.Sprintf("%d", lpa.Maxnodes))
+    }
+    if lpa.Top_results != 0 && lpa.Algorithm != SubgraphGenerator {
+        args = append(args, "--top_results", fmt.Sprint(lpa.Top_results))
     }
     return args
 }

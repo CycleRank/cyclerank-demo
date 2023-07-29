@@ -467,7 +467,6 @@
 
         if (!tasks) return;
         let jobid = ctx.job.id;
-        console.log("AAAAAAAAAAAAAAA: ", tasks);
         var buffer = [
             // FIXME: we may want to have a "date" here too
             '<p class="t job-t">',

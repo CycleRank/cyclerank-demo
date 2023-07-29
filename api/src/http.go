@@ -244,6 +244,7 @@ var QueryForm_Cyclerank = Form{
 	"debug":            []ValidationFunction{FieldOptional, FieldBoolean},
 	"verbose":          []ValidationFunction{FieldOptional, FieldBoolean},
 	"scoring_function": []ValidationFunction{FieldOptional, FieldCorrectScoringFunction},
+	"top_results":      []ValidationFunction{FieldOptional, FieldStrictlyPositiveInt},
 }
 
 // HTTPCyclerank is the handler for the cyclerank endpoint
@@ -282,6 +283,10 @@ func HTTPCyclerank(res http.ResponseWriter, req *http.Request) {
 
 	if FormIsSet(req.PostForm, "scoring_function") {
 		q.Scoring_function = req.PostForm["scoring_function"][0]
+	}
+
+	if FormIsSet(req.PostForm, "top_results") {
+		q.Top_results = MustParseUint(req.PostForm["top_results"][0], 10, 64)
 	}
 
 	var job_id uuid.UUID
@@ -363,6 +368,10 @@ func PrBasedAlgorithmsCommonBody(res http.ResponseWriter, req *http.Request, alg
 		q.Verbose = MustParseBool(req.PostForm["verbose"][0])
 	}
 
+	if FormIsSet(req.PostForm, "top_results") {
+		q.Top_results = MustParseUint(req.PostForm["top_results"][0], 10, 64)
+	}
+
 	var job_id uuid.UUID
 	if FormIsSet(req.PostForm, "job_id") {
 		job_id, _ = uuid.Parse(req.PostForm["job_id"][0])
@@ -396,11 +405,12 @@ func PrBasedAlgorithmsCommonBody(res http.ResponseWriter, req *http.Request, alg
 
 // QueryForm_Pr is the singleton instance for Pr's Query structure.
 var QueryForm_Pr = Form{
-	"file":    []ValidationFunction{FieldRequired, FieldSafePath, FieldFileExists},
-	"alpha":   []ValidationFunction{FieldOptional, FieldFloatBetweenZeroAndOne},
-	"job_id":  []ValidationFunction{FieldOptional, FieldIsUuid},
-	"debug":   []ValidationFunction{FieldOptional, FieldBoolean},
-	"verbose": []ValidationFunction{FieldOptional, FieldBoolean},
+	"file":    		[]ValidationFunction{FieldRequired, FieldSafePath, FieldFileExists},
+	"alpha":   		[]ValidationFunction{FieldOptional, FieldFloatBetweenZeroAndOne},
+	"job_id":  		[]ValidationFunction{FieldOptional, FieldIsUuid},
+	"debug":   		[]ValidationFunction{FieldOptional, FieldBoolean},
+	"verbose": 		[]ValidationFunction{FieldOptional, FieldBoolean},
+	"top_results":  []ValidationFunction{FieldOptional, FieldStrictlyPositiveInt},
 }
 
 // HTTPPr is the handler for the PageRank endpoint
@@ -509,6 +519,10 @@ func SspprBasedAlgorithmsCommonBody(res http.ResponseWriter, req *http.Request, 
 		q.Verbose = MustParseBool(req.PostForm["verbose"][0])
 	}
 
+	if FormIsSet(req.PostForm, "top_results") {
+		q.Top_results = MustParseUint(req.PostForm["top_results"][0], 10, 64)
+	}
+
 	var job_id uuid.UUID
 	if FormIsSet(req.PostForm, "job_id") {
 		job_id, _ = uuid.Parse(req.PostForm["job_id"][0])
@@ -542,12 +556,13 @@ func SspprBasedAlgorithmsCommonBody(res http.ResponseWriter, req *http.Request, 
 
 // QueryForm_Ssppr is the singleton instance for Ssppr's Query structure.
 var QueryForm_Ssppr = Form{
-	"file":    []ValidationFunction{FieldRequired, FieldSafePath, FieldFileExists},
-	"source":  []ValidationFunction{FieldRequired},
-	"alpha":   []ValidationFunction{FieldOptional, FieldFloatBetweenZeroAndOne},
-	"job_id":  []ValidationFunction{FieldOptional, FieldIsUuid},
-	"debug":   []ValidationFunction{FieldOptional, FieldBoolean},
-	"verbose": []ValidationFunction{FieldOptional, FieldBoolean},
+	"file":    	   []ValidationFunction{FieldRequired, FieldSafePath, FieldFileExists},
+	"source":  	   []ValidationFunction{FieldRequired},
+	"alpha":   	   []ValidationFunction{FieldOptional, FieldFloatBetweenZeroAndOne},
+	"job_id":  	   []ValidationFunction{FieldOptional, FieldIsUuid},
+	"debug":   	   []ValidationFunction{FieldOptional, FieldBoolean},
+	"verbose": 	   []ValidationFunction{FieldOptional, FieldBoolean},
+	"top_results": []ValidationFunction{FieldOptional, FieldStrictlyPositiveInt},
 }
 
 // HTTPSsppr is the handler for the Single Source Personalized PageRank endpoint
