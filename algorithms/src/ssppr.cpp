@@ -116,6 +116,7 @@ int main(int argc, char* argv[]) {
   string log_file="";
   string cliS = "";
   double alpha=0.85;
+  unsigned int top_results = 1000;
   bool verbose = false;
   bool debug = false;
   bool help = false;
@@ -150,7 +151,12 @@ int main(int argc, char* argv[]) {
       ("s,source", "Set source node (S).",
        cxxopts::value<string>(cliS),
        "S"
-       );
+       )
+      ("t,top-results", "Print the top-t results. [default: prints top 1000 results].",
+       cxxopts::value<unsigned int>(top_results),
+       "TOP_RESULTS"
+       )
+      ;
 
     auto arguments = options->parse(argc, argv);
   } catch (const cxxopts::OptionException& e) {
@@ -467,7 +473,11 @@ int main(int argc, char* argv[]) {
     }
   }
 
+  unsigned int scoresCounter = 1;
   for (const auto& node: orderedResults) {
+    if (scoresCounter > top_results) {
+      break;
+    }
     int i = node.second;
       if (old2label.find(i) == old2label.end()) {
         //node not found in label system
@@ -477,6 +487,7 @@ int main(int argc, char* argv[]) {
         //node is present in label system
       fprintf(outfp, "%d\t%s\t%.10e\n", i, old2label[i].c_str(), VECTOR(pprscore)[i]);
       }
+    scoresCounter++;
   }
 
 

@@ -158,6 +158,7 @@ int main(int argc, char* argv[]) {
   string log_file="";
   string cliS = "";
   double alpha=0.85;
+  unsigned int top_results = 1000;
   bool verbose = false;
   bool debug = false;
   bool help = false;
@@ -192,6 +193,10 @@ int main(int argc, char* argv[]) {
       ("s,source", "Set source node (S).",
        cxxopts::value<string>(cliS),
        "S"
+       )
+      ("t,top-results", "Print the top-t results. [default: prints top 1000 results].",
+       cxxopts::value<unsigned int>(top_results),
+       "TOP_RESULTS"
        )
       ;
 
@@ -608,8 +613,11 @@ int main(int argc, char* argv[]) {
   }
 
   // note: works on c++11
-  int scoresCounter = 1;
+  unsigned int scoresCounter = 1;
   for (auto const& x : scoresCombinedSorted) {
+    if (scoresCounter > top_results) {
+      break;
+    }
     //cout << x.first << " " << x.second.first << " " << x.second.second << endl;
     if (old2label.find(x.first) == old2label.end()) {
       //node not found in label system
