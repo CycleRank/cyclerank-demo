@@ -1,13 +1,13 @@
 # stage 1: build algo binaries
 FROM ubuntu:jammy AS algo-builder
 #-- igraph dependencies
-RUN apt-get update \
+RUN rm -rf /var/lib/apt/lists/* \
+  && apt-get update \
   && apt-get upgrade -y \
   && apt-get install -y cmake build-essential pkg-config \
                         bison flex git wget \
                         libxml2-dev libz3-dev liblzma-dev libgfortran-11-dev \
-                        libblas-dev liblapack-dev libarpack2-dev libgmp-dev \
-  && rm -rf /var/lib/apt/lists/*
+                        libblas-dev liblapack-dev libarpack2-dev libgmp-dev 
 #-- download igraph
 WORKDIR /
 RUN mkdir -pv /opt/igraph \
@@ -29,14 +29,14 @@ RUN cmake .. \
     && cmake --build . --target check \
     && cmake --install .
 WORKDIR /
-COPY ./algos /algos
+COPY ./algorithms /algos
 WORKDIR /algos
 RUN make all
 
 # stage 2: build cyclerank-api
 FROM golang:1.20.2 AS api-builder
 COPY ./api /api
-WORKDIR /api
+WORKDIR /api/src
 RUN go build .
 
 
@@ -47,7 +47,7 @@ RUN apt-get update \
   && apt-get install -y wget zstd \
   && rm -rf /var/lib/apt/lists/*
 RUN mkdir -pv /download/data && mkdir -pv /download/output
-COPY ./api-container/download-data.sh /
+COPY ./docker/images/api/download-data.sh /
 WORKDIR /download
 ARG download_data
 ENV download_data=${download_data:-false}
@@ -90,9 +90,9 @@ RUN mkdir -pv /usr/share/cyclerank-api/bin \
     && mkdir -pv /usr/share/cyclerank-api/output
 COPY --from=algo-builder /algos/bin \
                          /usr/share/cyclerank-api/bin
-COPY --from=api-builder /api/cyclerank-api \
+COPY --from=api-builder /api/src/cyclerank-api \
                         /bin/cyclerank-api
-COPY --from=api-builder /api/swaggerui \
+COPY --from=api-builder /api/src/swaggerui \
                         /usr/share/cyclerank-api/swaggerui
 RUN ln -s /usr/share/cyclerank-api/swaggerui /usr/share/cyclerank-api/bin/swaggerui
 COPY --from=downloader /download/data \
