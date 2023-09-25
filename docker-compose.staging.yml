@@ -8,8 +8,8 @@ name: cyclerank-staging
 services:
   api:
     build:
-      context: images
-      dockerfile: ./Dockerfile.api
+      context: ../cyclerank-demo
+      dockerfile: ./docker/images/api/Dockerfile.api
       args:
         download_data: false
         download_output: false
@@ -27,8 +27,8 @@ services:
 
   web:
     build:
-      context: images
-      dockerfile: ./Dockerfile.web
+      context: ../cyclerank-demo
+      dockerfile: ./docker/images/web/Dockerfile.web
     image: cyclerank/cyclerank-web-staging:latest
     container_name: staging-cyclerank-web
     ports:

@@ -3,16 +3,16 @@ version: '3'
 # project name
 # https://docs.docker.com/compose/reference/
 #   #use--p-to-specify-a-project-name
-name: cyclerank-production
+# name: cyclerank-production
 
 services:
   api:
     build:
-      context: images
-      dockerfile: ./Dockerfile.api
+      context: ../cyclerank-demo
+      dockerfile: ./docker/images/api/Dockerfile.api
       args:
-        download_data: true
-        download_output: true
+        download_data: false
+        download_output: false
     image: cyclerank/cyclerank-api:latest
     container_name: production-cyclerank-api
     volumes:
@@ -27,8 +27,8 @@ services:
 
   web:
     build:
-      context: images
-      dockerfile: ./Dockerfile.web
+      context: ../cyclerank-demo
+      dockerfile: ./docker/images/web/Dockerfile.web
     image: cyclerank/cyclerank-web:latest
     container_name: production-cyclerank-web
     ports:
