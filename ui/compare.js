@@ -557,7 +557,7 @@
                         l.label,
                         '</td><td>',
                         // l.score.toFixed(3),
-                        l.score.toExponential(5),
+                        l.score.toExponential(3),
                         '</td></tr>'
                     ]);
                 }
@@ -1101,7 +1101,7 @@
                     upload_result_string = "Internal error"
                     break;
                 case 200:
-                    upload_result_string = "Upload accepted, please check the file upload section to check the file's status"
+                    upload_result_string = "Upload accepted"
                     break;
             
                 default:
