@@ -11,8 +11,8 @@ services:
       context: ../cyclerank-demo
       dockerfile: ./docker/images/api/Dockerfile.api
       args:
-        download_data: false
-        download_output: false
+        download_data: 'true'
+        download_output: 'true'
     image: cyclerank/cyclerank-api:latest
     container_name: production-cyclerank-api
     volumes:
