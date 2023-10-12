@@ -776,6 +776,9 @@ div.result {
     background-color: var(--dark-color);
     flex: 0 0 30%;
     min-width: 350px;
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
 }
 
 .restbl_div {
@@ -863,17 +866,12 @@ table.rqparam tr > td:first-child {
 }
 
 .sg-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  /* justify-items: stretch; */
-  align-items: center;
-  grid-template-rows: [row1-start] 25% [row1-end] 100px [third-line] auto [mid-line] 220px [last-line];
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  width: 100%;
 }
 
-.sg-plus-zoom {
-  grid-row-end: 100;
-}
 
 .sg-hold {
   background: rgba(0,0,0,0.8);

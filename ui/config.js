@@ -10,10 +10,13 @@ switch (window.location.hostname) {
       env.API_URL = 'http://localhost:5001';
     } else if (window.location.port === '4000') {
       // Staging environment
-      env.API_URL = 'http://localhost:4001';
+      env.API_URL = 'http://localhost:4000/api';
     } else if (window.location.port === '3000') {
       // Production environment
-      env.API_URL = 'http://localhost:3001';
+      env.API_URL = 'http://localhost:3000/api';
+    } else if (window.location.port === '5500') {
+      // LiveServer environment
+      env.API_URL = 'http://localhost:8080';
     } else {
       console.error('Port not recognized. Please check your configuration.');
     }
