@@ -486,7 +486,7 @@
             let b = await get(API_URL + '/v0/output', {'id': t.id, 'limit': RESULTS_TOP_SMALL_K});
 
             buffer.push(...[
-                '<div class="result" data-tid="', t.id ,'">',
+                '<div class="result" data-tid="', t.id ,'"><div class="sg-container">',
                 '<p class="t">Parameters:</p>',
                 '<table class="rqparam">',
                     '<tr><td>',
@@ -566,7 +566,7 @@
                 // async let's load the graph
                 let sgid = 'sg$' + t.id;
                 buffer.push(...[
-                    '<div class="sg" id="', sgid, '">',
+                    '<div class="sg-plus-zoom"><div class="sg" id="', sgid, '">',
                     spinner_code,
                     '</div>',
                     '<center><a href="#" class="zoom" data-qid="', t.id, '" ',
@@ -578,7 +578,7 @@
                     'clickToUse': true,
                 }));
             }
-            buffer.push('</div>');
+            buffer.push('</div></div></div>');
         }
 
         spinner.style.display = "none";
