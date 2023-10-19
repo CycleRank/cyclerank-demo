@@ -12,6 +12,7 @@ var (
 	addr       = flag.String("addr", ":8080", "[ip]:port")
 	repository = flag.String("repository", "../data", "Dataset repository path")
 	outputDir  = flag.String("output_dir", "../output", "Output directory path")
+	utils      = flag.String("utils", "../utils", "Utilities directory path")
 )
 
 func main() {
@@ -19,9 +20,11 @@ func main() {
 
 	repository = EnsureAbsPathOrDie(repository)
 	outputDir = EnsureAbsPathOrDie(outputDir)
+	utils = EnsureAbsPathOrDie(utils)
 
 	log.Printf("Repository %s", *repository)
 	log.Printf("Output dir %s", *outputDir)
+	log.Printf("Utilities dir %s", *utils)
 
 	InitStatusRecorder()
 	RegisterAPI()

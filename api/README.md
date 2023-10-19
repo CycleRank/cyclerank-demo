@@ -33,6 +33,8 @@ Usage of ./cyclerank-api:
         Output directory path (default "output/")
   -repository string
         Dataset repository path (default "data/")
+  -utils string
+        Utilities directory path (default "../utils")
 ```
 
 ## Testing Locally
