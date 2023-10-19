@@ -784,6 +784,7 @@ div.result {
 .restbl_div {
   max-height: 250px;
   overflow: auto;
+  flex-grow: 2;
 }
 
 .restbl_div_big {
