@@ -688,6 +688,14 @@
 
         let source_node_id = 0;
 
+        if (g.nodes == null) {
+            g.nodes = [];
+        }
+
+        if (g.edges == null) {
+            g.edges = [];
+        }
+
         //FIXME: change outputSubgraph instead of remapping 
         let new_nodes = g.nodes.map(n => {
             let m = {
