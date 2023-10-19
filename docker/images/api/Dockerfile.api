@@ -94,6 +94,8 @@ COPY --from=api-builder /api/src/cyclerank-api \
                         /bin/cyclerank-api
 COPY --from=api-builder /api/src/swaggerui \
                         /usr/share/cyclerank-api/swaggerui
+COPY --from=api-builder /api/utils \
+                        /usr/share/cyclerank-api/utils
 RUN ln -s /usr/share/cyclerank-api/swaggerui /usr/share/cyclerank-api/bin/swaggerui
 COPY --from=downloader /download/data \
                        /usr/share/cyclerank-api/data
@@ -106,5 +108,6 @@ WORKDIR /
 CMD ["/bin/cyclerank-api", \
      "-bin", "/usr/share/cyclerank-api/bin", \
      "-repository", "/usr/share/cyclerank-api/data", \
-     "-output_dir", "/usr/share/cyclerank-api/output" \
+     "-output_dir", "/usr/share/cyclerank-api/output", \
+     "-utils", "/usr/share/cyclerank-api/utils" \
      ]
