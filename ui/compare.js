@@ -490,7 +490,7 @@
                 '<p class="t">Parameters:</p>',
                 '<table class="rqparam">',
                     '<tr><td>',
-                        'Algorihtm',
+                        'Algorithm',
                     '</td><td>',
                         b.params.algorithm,
                     '</td></tr>',
@@ -797,7 +797,7 @@
             b = results;
         
             var info_buffer = [
-                '<p>Algorihtm: ',
+                '<p>Algorithm: ',
                 b.params.algorithm,
                     ', Dataset: ',
                             b.params.file.substr(b.params.file.lastIndexOf("/")+1),
@@ -1358,6 +1358,13 @@ function addListeners(sigma, graph, div_id) {
                 selectedNode = new_suggestions[0].id;
                 suggestions = undefined;
 
+                // Clear previous highlight, if any is present:
+                if (tablerow) {
+                    // tablerow.classList.remove("highlight-grey");
+                    // tablerow.classList.remove("highlight-dark");
+                    tablerow.classList.remove("highlight");
+                }
+
                 // Move to node's table row:
                 tablerow = document.getElementById(div_id + query.replaceAll(" ", "_"));
                 tablerow.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1380,6 +1387,8 @@ function addListeners(sigma, graph, div_id) {
         else {
             selectedNode = undefined;
             suggestions = undefined;
+            // tablerow.classList.remove("highlight-grey");
+            // tablerow.classList.remove("highlight-dark");
             tablerow.classList.remove("highlight");
         }
 

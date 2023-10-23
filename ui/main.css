@@ -335,19 +335,24 @@ input:checked + .slider:before {
 }
 
 #theProblem {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/theProblem.jpg');  
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/theProblem_new.png');  
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #theSolution {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/theSolution.jpg');  
-  background-size: cover;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/theSolution_new.png');    
+  background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
 
 #forTheCurious {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/forTheCurious.jpg');  
+  background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('./images/forTheCurious_new.png');    
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #theProblem, #theSolution, #forTheCurious {
@@ -814,9 +819,14 @@ table.restbl tr > td:nth-child(3) {
     /* text-align: center; */
 }
 
+.restbl_div > table.restbl tr:nth-child(even) {
+  background-color: var(--light-dark-color);
+}
+
 table.rqparam {
   margin: auto;
   margin-left: 0px;
+  margin-top: 0px;
   text-align: left;
 }
 
@@ -831,6 +841,16 @@ table.rqparam tr > td:first-child {
 }
 
 .highlight {
+  background-color: var(--grey-color);
+  color: var(--dark-color);
+}
+
+.highlight-grey {
+  background-color: var(--grey-color);
+  color: var(--dark-color);
+}
+
+.highlight-dark {
   background-color: var(--grey-color);
   color: var(--dark-color);
 }
