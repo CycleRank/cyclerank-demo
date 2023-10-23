@@ -197,7 +197,7 @@
             Array.from(document.querySelectorAll('#ds-lst-body tr input'))
                 .forEach((e) => {
                     // wiki dataset name here
-                    if (e.value == "enwiki.wikigraph.2002-03-01.cleaned.csv") {
+                    if (e.value == "enwiki.wikigraph.2003-03-01.cleaned.csv") {
                         e.checked = true;
                     }
                 });
