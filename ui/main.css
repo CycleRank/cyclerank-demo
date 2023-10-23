@@ -819,7 +819,7 @@ table.restbl tr > td:nth-child(3) {
     /* text-align: center; */
 }
 
-.restbl_div > table.restbl tr:nth-child(even) {
+table.restbl tr:nth-child(even) {
   background-color: var(--light-dark-color);
 }
 
@@ -841,8 +841,8 @@ table.rqparam tr > td:first-child {
 }
 
 .highlight {
-  background-color: var(--grey-color);
-  color: var(--dark-color);
+  background-color: var(--grey-color) !important;
+  color: var(--dark-color) !important;
 }
 
 .highlight-grey {
