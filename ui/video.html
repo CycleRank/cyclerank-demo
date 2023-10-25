@@ -58,43 +58,48 @@
       <div class="above-header">
         <div class="demo-name">Cyclerank: Improving Personalized Relevance Scores in Directed Graphs</div>
       </div>
-        <header id="myHeader">
-            <nav class="navbar">
-                <ul class="nav-items">
-                    <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
-                    <li class="nav-item"><a href="compare.html" class="nav-link">TRY IT OUT</a></li>
-                    <li class="nav-item"><a href="examples.html" class="nav-link">EXAMPLES</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link">ABOUT</a></li>
-                    <li class="nav-item"><a href="algorithms.html" class="nav-link">ALGORITHMS</a></li>
-                    <li class="nav-item"><a href="instructions.html" class="nav-link">INSTRUCTIONS</a></li>
-                    <li class="nav-item selected-nav"><a href="video.html" class="nav-link">VIDEO</a></li>
-                </ul>
-            </nav>
-            <label id="switch" class="switch">
-                <input type="checkbox" onchange="toggleTheme()" id="slider">
-                <span class="slider round"></span>
-            </label>
-            <div class="menu-toggle">
-              <i class="bx bx-menu"></i>
-              <i class="bx bx-x"></i>
-            </div>
-        </header>
 
+      <header id="myHeader">
+          <nav class="navbar">
+              <ul class="nav-items">
+                  <li class="nav-item"><a href="index.html" class="nav-link">HOME</a></li>
+                  <li class="nav-item"><a href="compare.html" class="nav-link">TRY IT OUT</a></li>
+                  <li class="nav-item"><a href="examples.html" class="nav-link">EXAMPLES</a></li>
+                  <li class="nav-item"><a href="about.html" class="nav-link">ABOUT</a></li>
+                  <li class="nav-item"><a href="algorithms.html" class="nav-link">ALGORITHMS</a></li>
+                  <li class="nav-item"><a href="instructions.html" class="nav-link">INSTRUCTIONS</a></li>
+                  <li class="nav-item selected-nav"><a href="video.html" class="nav-link">VIDEO</a></li>
+              </ul>
+          </nav>
+          <label id="switch" class="switch">
+              <input type="checkbox" onchange="toggleTheme()" id="slider">
+              <span class="slider round"></span>
+          </label>
+          <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+            <i class="bx bx-x"></i>
+          </div>
+      </header>
+
+      <div class="under-header">
+        
         <h2>Video</h2>
-
-            <!-- https://stackoverflow.com/a/72196771/2377454 -->
-            <div class="center">
-                <!-- https://www.geeksforgeeks.org/how-to-insert-video-in-web-page-and-play-it-using-html/ -->
-                <video id="autoplay" width="100%" controls="controls">
-                  <source src="video.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <script>
-                    window.onload = function(){
-                      document.getElementById("autoplay").play()
-                    }
-                </script>
-            </div>
+          
+          <!-- https://stackoverflow.com/a/72196771/2377454 -->
+          <div class="center">
+            <!-- https://www.geeksforgeeks.org/how-to-insert-video-in-web-page-and-play-it-using-html/ -->
+            <video id="autoplay" width="100%" controls="controls">
+              <source src="video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <script>
+                window.onload = function(){
+                  document.getElementById("autoplay").play()
+                }
+            </script>
+          </div>
+          
+      </div>
 
     <script src="vis-network.min.js"></script>
     <script src="compare.js"></script>

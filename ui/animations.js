@@ -33,18 +33,29 @@
   tryItOut = document.getElementById("try_it_out");
   main_exampleTitle = document.getElementById("main_exampleTitle");
   examplePermalinks = document.getElementById("examplePermalinks");
+  under_header = document.querySelector('.under-header');
+  above_header = document.querySelector('.above-header');
 
   comparePage = document.getElementById("output");
 
   var header = document.getElementById("myHeader");
-  var sticky = header.offsetTop;
+  // var sticky = header.offsetTop;
+  var sticky = above_header.offsetHeight;
 
   var myScrollFunc = function () {
     // make header sticky, except for compare page. FIXME: if the results are put in a separate page, make a distinction between compare and results here
-    if (window.pageYOffset > sticky && !comparePage) {
+    if (window.scrollY > sticky && !comparePage) {
       header.classList.add("sticky");
+      if (main_exampleTitle) {
+        under_header.style.marginTop = (100 + above_header.offsetHeight) + 'px';
+
+      }
+      else {
+        under_header.style.marginTop = (above_header.offsetHeight) + 'px';
+      }
     } else {
       header.classList.remove("sticky");
+      under_header.style.marginTop = 0;
     }
 
     // index page only (animations)

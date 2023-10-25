@@ -91,16 +91,16 @@ a {
   z-index: 500;
 }
 
-.sticky + #main_introBackground { margin-top: 165px; }
+/* .sticky + #main_introBackground { margin-top: 177.4px; } */
 
 /* offset for compare page */
-.sticky + #main { margin-top: 70px; }
+/* .sticky + #main { margin-top: 70px; } */
 
 /* offset for examples page */
-.sticky + #examplesh2 { padding-top: 115px; }
+/* .sticky + #examplesh2 { padding-top: 115px; } */
 
 /* offset for about page */
-.sticky + h2 { padding-top: 90px; }
+/* .sticky + h2 { padding-top: 90px; } */
 
 .above-header {
   background-color: var(--dark-color);
@@ -133,9 +133,11 @@ header {
 }
 .nav-items {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .nav-item {
-  margin: 0 2rem;
+  margin: 0.2rem 2rem;
   padding: 0.5rem;
   border-radius: 7px;
 }
