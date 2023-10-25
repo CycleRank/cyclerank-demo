@@ -11,6 +11,20 @@
     <!-- <link rel="icon" href="images/favicon.png" /> -->
 
     <link rel="stylesheet" href="main.css">
+    <style>
+        #instructions-div {
+          margin: 1rem;
+        }
+        img {
+          /* width: 100px;
+          height: 100px; */
+          /* border-radius: 50%; */     /* circles */
+          margin-top: 1rem;
+          border-radius: 10px;          /* squares */
+          margin-right: 20px;
+          object-fit: cover;
+        }
+    </style>
 
 </head>
 <body>
@@ -40,6 +54,29 @@
     </header>
     
     <div class="under-header">
+        <div id="instructions-div">
+        <h3>Algorithm comparison</h3> <p>The demo’s main goal is to allow algorithm comparison and to highlight Cyclerank’s strengths. To perform a comparison, go under the “Try it out” section:</p>
+            <br>
+            <img src="images/try-it-out-con-freccia.png" alt="click on try it out">
+            <br>
+            <p>Under the Create Queries section go at the bottom and choose the algorithms to analyze. We suggest comparing PageRank with Cyclerank, as that offers the most interesting results. </p>
+            <p>Check the algorithms’ boxes and choose their parameters, or leave them as-is to use the default ones. </p>
+            <img src="images/cr-pr-selected.png" alt="Cyclerank and PageRank selected"> 
+            <br>
+            <p>Then, select a dataset on which to run the comparison. 
+            For a quick analysis, we suggest “wikilinkgraph en 2003-03-01”, as WikiLink networks tend to have a high number of nodes and edges, and the computation of the PageRank requires time.<br> 
+            Finally, insert a source node to run the algorithms on. We suggest nodes such as “Internet”, "Fake news" or "IEEE", but please note that the query node must exist in the dataset precisely as it is spelled, and must have existed at the snapshot's date of creation. <br>
+            Then launch the queries by pressing on the “Add to compare” button: </p>
+            <br>
+            <img src="images/add-to-compare.png" alt="press on Add to compare">
+            <p>and then the “Launch queries” button under the Query Set section. </p>
+            <img src="images/burn-baby-burn.png" alt="press on Launch queries">
+            <br>
+        <br>
+        <h3>Dataset comparison</h3> <p>It is possible to analyze an algorithm’s performance over multiple datasets and to appreciate a dataset’s evolution in time or differences in language.<br> 
+            To do so, select a single algorithm and the first dataset to run it on. Once added to the Query Set section, you can add another dataset comparison by selecting the same algorithm again, and then selecting the new dataset you want to analyze alongside the ones you have already added.</p>
+            <img src="images/dataset-comparison.png" alt="dataset comparison">
+        </div>
     </div>
     <script src="animations.js"></script>
 </body>

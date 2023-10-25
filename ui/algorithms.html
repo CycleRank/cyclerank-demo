@@ -11,7 +11,14 @@
     <!-- <link rel="icon" href="images/favicon.png" /> -->
 
     <link rel="stylesheet" href="main.css">
-
+    <style>
+        #algo-description {
+          padding: 1rem;
+        }
+        p {
+            margin-bottom: 1rem;
+        }
+    </style>
 </head>
 <body>
     <div class="above-header">
@@ -39,7 +46,18 @@
         </div>
     </header>
     <div class="under-header">
-        
+        <div id="algo-description">
+            <h3>Cyclerank</h3> <p>Cyclerank is a novel algorithm that leverages <b>cyclic paths</b> in directed graphs to identify the most relevant nodes related to a given reference node. It does so by counting the number of cycles of various lengths that contain the reference node and any other node. As short distances represent a stronger relationship, short cycles receive a higher weight. This is thanks to a scoring function that is defined as 𝜎=e-n, with n being the length of the cycles that are currently being taken into consideration. A maximum cycle length K can be specified and is usually set to 3. (forse evidenziare meglio i lati positivi di Cr?)</p>
+            <br>
+            <h3>PageRank</h3> <p>PageRank returns a metric based on <b>incoming connections</b>, where connections from relevant nodes are given a higher weight. The idea is to simulate the actions of a user that navigates a hyperlink graph: from each node, the algorithm assumes equal probabilities of following any hyperlink included in the page and a certain probability of “teleporting” to another random page in the graph. This probability is called damping factor alpha and is usually set to be 0.85.</p>
+            <br>
+            <h3>Personalized PageRank</h3> <p>Personalized PageRank is a variant of the original PageRank algorithm, in which teleporting is not directed to all nodes randomly, but to a <b>specific node</b> or <b>set of nodes</b>. In this way, the algorithm models the relevance of nodes around the selected set of reference nodes, as the probability of reaching each of them, when following random walks starting from this chosen set.</p>
+            <br>
+            <h3>ChieRank</h3> <p>ChieRank computes the PageRank score of nodes on the transposed graph. It can be seen as a kind of PageRank based on <b>outgoing</b> instead of incoming connections.</p>
+            <br>
+            <h3>2dRank</h3> <p>2dRank combines CheiRank and PageRank to produce a single <b>two-dimensional</b> ranking of directed graphs. This method does not assign a score to each node, but just produces a ranking. It was used together with PageRank to rank biographies across different language editions.</p>
+            <br>
+        </div>
     </div>
     <script src="animations.js"></script>
 </body>
