@@ -24,6 +24,17 @@
           margin-right: 20px;
           object-fit: cover;
         }
+        #instructions-div {
+            display: flex;
+            flex-direction: column;
+        }
+        img {
+            flex-shrink: 1;
+            max-width: fit-content;
+        }
+        h3, p {
+            flex-grow: 2;
+        }
     </style>
 
 </head>
@@ -55,7 +66,7 @@
     
     <div class="under-header">
         <div id="instructions-div">
-        <h3>Algorithm comparison</h3> <p>The demo’s main goal is to allow algorithm comparison and to highlight Cyclerank’s strengths. To perform a comparison, go under the “Try it out” section:</p>
+        <h3>Algorithm comparison</h3> <p>The demo’s main goal is to allow users to play with different datasets, comparing the main state-of-the-art algorithms for computing personalized relevance scores. To perform a comparison, go under the “Try it out” section:</p>
             <br>
             <img src="images/try-it-out-con-freccia.png" alt="click on try it out">
             <br>

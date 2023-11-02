@@ -47,7 +47,22 @@
     </header>
     <div class="under-header">
         <div id="algo-description">
-            <h3>Cyclerank</h3> <p>Cyclerank is a novel algorithm that leverages <b>cyclic paths</b> in directed graphs to identify the most relevant nodes related to a given reference node. It does so by counting the number of cycles of various lengths that contain the reference node and any other node. As short distances represent a stronger relationship, short cycles receive a higher weight. This is thanks to a scoring function that is defined as 𝜎=e-n, with n being the length of the cycles that are currently being taken into consideration. A maximum cycle length K can be specified and is usually set to 3. (forse evidenziare meglio i lati positivi di Cr?)</p>
+            <h3>Cyclerank</h3> <p>Cyclerank is a novel algorithm that leverages <b>cyclic paths</b> in directed graphs to identify the most relevant nodes 
+                related to a given reference node. To account for connections in both directions, it is based on counting the number of cycles of various 
+                lengths, containing the reference node, that pass through each node. More precisely, given a reference node r, the CycleRank score of a node 
+                i represents the number of cycles including both r and i, weighted by the scoring function, which depends on the length of the cycle. As short 
+                distances represent a stronger relationship, short cycles receive a higher weight (by default, the function is 𝜎=e<sup>-n</sup>, with n being the 
+                length of the cycle). A maximum cycle length K can be specified and by default is set to 3. 
+                <br>
+                More details can be found in: <a>https://royalsocietypublishing.org/doi/full/10.1098/rspa.2019.0740</a></p>
+                
+                <!-- Cyclerank is a novel algorithm that leverages 
+                <b>cyclic paths</b> in directed graphs to identify the most relevant nodes related to a given 
+                reference node. It does so by counting the number of cycles of various lengths that contain the reference node and any other
+                 node. As short distances represent a stronger relationship, short cycles receive a higher weight. This is thanks to a scoring function 
+                 that is defined as 𝜎=e-n, with n being the length of the cycles that are currently being taken into consideration. A maximum cycle length
+                  K can be specified and is usually set to 3.</p>
+                 -->
             <br>
             <h3>PageRank</h3> <p>PageRank returns a metric based on <b>incoming connections</b>, where connections from relevant nodes are given a higher weight. The idea is to simulate the actions of a user that navigates a hyperlink graph: from each node, the algorithm assumes equal probabilities of following any hyperlink included in the page and a certain probability of “teleporting” to another random page in the graph. This probability is called damping factor alpha and is usually set to be 0.85.</p>
             <br>
