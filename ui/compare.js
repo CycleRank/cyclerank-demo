@@ -488,6 +488,7 @@
             buffer.push(...[
                 '<div class="result" data-tid="', t.id ,'"><div class="sg-container">',
                 '<p class="t">Parameters:</p>',
+                '<div class="rqparam_div">',
                 '<table class="rqparam">',
                     '<tr><td>',
                         'Algorithm',
@@ -520,7 +521,7 @@
                     ]);
                 }
             }
-            buffer.push('</table>');
+            buffer.push('</table></div>');
 
             buffer.push(...[
                 '<p class="t">Ranking:</p>',

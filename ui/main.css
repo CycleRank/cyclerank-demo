@@ -725,6 +725,10 @@ tbody > tr:nth-child(1) > td:nth-child(3) > input {
   margin-top: 1rem;
 }
 
+.sg-plus-zoom {
+  overflow: auto;
+}
+
 #ds-search-cont {
     box-sizing: border-box;
     padding: 0 .5em 0 .5em;
@@ -825,11 +829,16 @@ table.restbl tr:nth-child(even) {
   background-color: var(--light-dark-color);
 }
 
+.rqparam_div{
+  overflow: auto;
+}
+
 table.rqparam {
   margin: auto;
   margin-left: 0px;
   margin-top: 0px;
   text-align: left;
+  width: 100%;
 }
 
 table.rqparam tr > td {
@@ -877,7 +886,7 @@ table.rqparam tr > td:first-child {
 .sg {
   margin: auto;
   margin-top: 1rem;
-  width: 350px;
+  width: 70%;
   height: 197px;
   border: 1px solid var(--grey-color);
   /* background-color: var(--white-color); */
