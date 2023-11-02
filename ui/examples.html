@@ -30,9 +30,14 @@
           border-radius: 10px;          /* squares */
           margin-right: 20px;
           object-fit: fill;
+          max-width: 60%;
+          flex: 1 1;
+        }
+        #sol_example img {
+            max-width: 40%;
         }
         .example .explanation {
-          flex: 1;
+          flex: 3 3;
         }
       </style>
 </head>
@@ -66,7 +71,7 @@
         <h2 id="examplesh2">Reasons why we felt this demo was needed.</h2>
 
         <div class="example" id="prob_example">
-            <img src="./images/theProblem_new.png" alt="The Problem" style="width: 600px; height: 350px;">
+            <img src="./images/theProblem_new.png" alt="The Problem">
             <div class="explanation">
                 <h3>The Problem</h2>
                     <br />
@@ -75,7 +80,7 @@
                         Personalized PageRank is a well-known option to make sense of the graph of links between pages, and identify the most relevant articles with respect to a given one; its performance, however, is hindered by pages with high indegree that function as hubs and obtain high scores regardless of the
                         starting point.
                         <br /><br />
-                        <a href="compare.html?cmpid=870be217-2e17-4390-8255-f3948d6c30ee" target="_blank">See the results in detail.</a>
+                        <a href="compare.html?cmpid=c0e842df-0f00-4615-922a-0eb656b6ba6f" target="_blank">See the results in detail.</a>
                         One can easily notice how prominent the node "World War II" is, even though the source node for the Personalized PageRank was "Fake news".
                     </p>
 
@@ -88,16 +93,16 @@
                     <br />
                     <p> The solution is found in CycleRank, a novel algorithm based on cyclic paths aimed at finding the most relevant nodes related to a topic.
                     <br /><br />
-                    <a href="compare.html?cmpid=c36ad29f-d98b-48d8-956b-003cbbbded2f" target="_blank">See the results in details.</a>
+                    <a href="compare.html?cmpid=985fc68b-d137-45dc-a618-a045f6294062" target="_blank">See the results in details.</a>
                     CycleRank easily overcomes the above-mentioned issue. The same query launched with this new algorithm, source node "Fake news" and max cycle length 3 leads to results that aren't polluted by high in-degree articles.
                     </p>
 
             </div>
-            <img src="./images/theSolution_new.png" alt="Our Solution" style="width: 300px; height: 350px;">
+            <img src="./images/theSolution_new.png" alt="Our Solution">
         </div>
 
         <div class="example" id="curious_example">
-            <img src="./images/forTheCurious_new.png" alt="For the curious" style="width: 600px; height: 350px;">
+            <img src="./images/forTheCurious_new.png" alt="For the curious">
             <div class="explanation">
                 <h3>For the Curious</h2>
                     <br />
