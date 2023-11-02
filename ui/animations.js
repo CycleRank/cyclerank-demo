@@ -53,7 +53,7 @@
       else {
         under_header.style.marginTop = (above_header.offsetHeight) + 'px';
       }
-    } else {
+    } else if (!comparePage){
       header.classList.remove("sticky");
       under_header.style.marginTop = 0;
     }
