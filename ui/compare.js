@@ -1282,7 +1282,7 @@ function draw_sigma(graph, div_id) {
 
         hideEdgesOnMove: true,
         hideLabelsOnMove: false,
-        allowInvalidContainer: true,
+        // allowInvalidContainer: true,
         // maxEdgeSize: 0.5,
         // minEdgeSize: 0.2,
         // minCameraRatio: 0.75, // How far can we zoom out?
@@ -1295,6 +1295,7 @@ function draw_sigma(graph, div_id) {
 
         addListeners(sigma, graph, div_id);
     } catch {
+        console.log("Error found while drawing graph");
         document.getElementById(div_id).innerHTML = 'Error!';
     }
 }
