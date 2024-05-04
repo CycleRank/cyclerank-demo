@@ -764,7 +764,11 @@
         
         document.getElementById(div_id).innerHTML = '';
 
-        draw_sigma(graph, div_id);
+        try {
+            draw_sigma(graph, div_id);
+        } catch {
+            document.getElementById(div_id).innerHTML = 'Error!';
+        }
     };
 
     let graph_zoom = (e) => {
