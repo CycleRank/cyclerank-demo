@@ -895,6 +895,10 @@
             bigg.innerHTML = bigg.innerHTML + buffer.join('');
     
             enable_popup(div_id + '-H');
+
+            // remove spinner
+            // spinner = document.getElementById("wait_results");
+            spinner.style.display = "none";
     
     
             // load big graph in it.
