@@ -458,7 +458,7 @@
                 '?cmpid=' + encodeURIComponent(jobid);
     }
 
-    let spinner_code = '<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>';
+    let spinner_code = '<div class="lds-roller" id="spinner_code"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>';
 
     let load_results = async function(tasks, ctx) {
         // NOTE: the firs node must be create manually and not via innerHTML
@@ -762,6 +762,9 @@
             settings,
             iterations: 400 });
         
+        // remove spinner
+        let spinner_code_element = document.getElementById("spinner_code");
+        spinner_code_element.style.display = "none";
         document.getElementById(div_id).innerHTML = '';
 
         try {
@@ -896,9 +899,6 @@
     
             enable_popup(div_id + '-H');
 
-            // remove spinner
-            // spinner = document.getElementById("wait_results");
-            spinner.style.display = "none";
     
     
             // load big graph in it.
