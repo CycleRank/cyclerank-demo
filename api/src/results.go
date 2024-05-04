@@ -60,7 +60,8 @@ func FindQueryFilesByID(id uuid.UUID) (string, string, string, error) {
 func FindDatasetWithInitFile(initfile string) (string, error) {
 	cfg, err := ini.Load(initfile)
 	if err != nil {
-		log.Fatalf("Error opening .ini file in FindDatasetWithInitFile() function: %s", err)
+		log.Printf("Error opening .ini file in FindDatasetWithInitFile() function: %s", err)
+		return "", err
 	}
 
 	return cfg.Section("query").Key("file").String(), nil
@@ -70,7 +71,7 @@ func FindDatasetWithInitFile(initfile string) (string, error) {
 func ParseOutput(data *bufio.Reader, limit int64) (QueryResults, error) {
 	results := QueryResults{}
 	for {
-		if (limit > 0 && len(results) >= int(limit)) {
+		if limit > 0 && len(results) >= int(limit) {
 			break
 		}
 		line, err := data.ReadString('\n')

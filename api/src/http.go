@@ -405,12 +405,12 @@ func PrBasedAlgorithmsCommonBody(res http.ResponseWriter, req *http.Request, alg
 
 // QueryForm_Pr is the singleton instance for Pr's Query structure.
 var QueryForm_Pr = Form{
-	"file":    		[]ValidationFunction{FieldRequired, FieldSafePath, FieldFileExists},
-	"alpha":   		[]ValidationFunction{FieldOptional, FieldFloatBetweenZeroAndOne},
-	"job_id":  		[]ValidationFunction{FieldOptional, FieldIsUuid},
-	"debug":   		[]ValidationFunction{FieldOptional, FieldBoolean},
-	"verbose": 		[]ValidationFunction{FieldOptional, FieldBoolean},
-	"top_results":  []ValidationFunction{FieldOptional, FieldStrictlyPositiveInt},
+	"file":        []ValidationFunction{FieldRequired, FieldSafePath, FieldFileExists},
+	"alpha":       []ValidationFunction{FieldOptional, FieldFloatBetweenZeroAndOne},
+	"job_id":      []ValidationFunction{FieldOptional, FieldIsUuid},
+	"debug":       []ValidationFunction{FieldOptional, FieldBoolean},
+	"verbose":     []ValidationFunction{FieldOptional, FieldBoolean},
+	"top_results": []ValidationFunction{FieldOptional, FieldStrictlyPositiveInt},
 }
 
 // HTTPPr is the handler for the PageRank endpoint
@@ -556,12 +556,12 @@ func SspprBasedAlgorithmsCommonBody(res http.ResponseWriter, req *http.Request, 
 
 // QueryForm_Ssppr is the singleton instance for Ssppr's Query structure.
 var QueryForm_Ssppr = Form{
-	"file":    	   []ValidationFunction{FieldRequired, FieldSafePath, FieldFileExists},
-	"source":  	   []ValidationFunction{FieldRequired},
-	"alpha":   	   []ValidationFunction{FieldOptional, FieldFloatBetweenZeroAndOne},
-	"job_id":  	   []ValidationFunction{FieldOptional, FieldIsUuid},
-	"debug":   	   []ValidationFunction{FieldOptional, FieldBoolean},
-	"verbose": 	   []ValidationFunction{FieldOptional, FieldBoolean},
+	"file":        []ValidationFunction{FieldRequired, FieldSafePath, FieldFileExists},
+	"source":      []ValidationFunction{FieldRequired},
+	"alpha":       []ValidationFunction{FieldOptional, FieldFloatBetweenZeroAndOne},
+	"job_id":      []ValidationFunction{FieldOptional, FieldIsUuid},
+	"debug":       []ValidationFunction{FieldOptional, FieldBoolean},
+	"verbose":     []ValidationFunction{FieldOptional, FieldBoolean},
 	"top_results": []ValidationFunction{FieldOptional, FieldStrictlyPositiveInt},
 }
 
@@ -697,7 +697,12 @@ func HTTPOutput(res http.ResponseWriter, req *http.Request) {
 	}
 	defer f.Close()
 
-	q := Parse(initfile)
+	q, err := Parse(initfile)
+	if err != nil {
+		res.WriteHeader(http.StatusInternalServerError)
+		log.Printf("Cannot parse output for id %s (%s): %s", id, outfile, err)
+		return
+	}
 	// formattedQuery := Parse(initfile).String()
 	name := filepath.Base(f.Name())
 
@@ -778,7 +783,12 @@ func HTTPOutputSubgraph(res http.ResponseWriter, req *http.Request) {
 	defer f.Close()
 
 	// I want to parse queryID and maxnodes from the filepath
-	q := Parse(initfile)
+	q, err := Parse(initfile)
+	if err != nil {
+		res.WriteHeader(http.StatusInternalServerError)
+		log.Printf("Cannot parse output for id %s (%s): %s", id, outfile, err)
+		return
+	}
 	queryID := q.Query_to_analyze
 	maxnodes := q.Maxnodes
 	to := TaskOutputSubgraph{
@@ -800,7 +810,7 @@ func HTTPOutputSubgraph(res http.ResponseWriter, req *http.Request) {
 			to.Edges = edges
 		}
 	}
-	
+
 	res.WriteHeader(http.StatusOK)
 	res.Write(MustMarshal(to))
 }
@@ -911,7 +921,6 @@ func HTTPUploadFile(res http.ResponseWriter, req *http.Request) {
 		// log.Printf("Creating ini file for file with name: %s, path: %s", newfilepath, *repository)
 		CreateIniFile(newfilepath, description)
 	}
-
 
 	// log.Printf("Uploaded file with name: %s, path: %s", header.Filename, newfilepath)
 	log.Printf("Uploaded file with name: %s, path: %s, description: %s, extension: %s", header.Filename, newfilepath, req.PostForm["description"][0], req.PostForm["extension"][0])
@@ -1061,7 +1070,12 @@ func HTTPAvailable(res http.ResponseWriter, req *http.Request) {
 			continue
 		}
 		currQueryName = queryOutputFiles[i].Name
-		currQuery = Parse(strings.TrimSuffix(queryOutputFiles[i].Path, ".csv") + ".ini")
+		currQuery, err = Parse(strings.TrimSuffix(queryOutputFiles[i].Path, ".csv") + ".ini")
+		if err != nil {
+			log.Printf("%s", err)
+			res.WriteHeader(http.StatusInternalServerError)
+			return
+		}
 
 		if !strings.Contains(currQueryName, "_") {
 			// simply append to the no job category (uuid.Nil.String)

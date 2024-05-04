@@ -41,11 +41,12 @@ type Query struct {
 }
 
 // parse the query's parameters given a correct query file name
-func Parse(initfile string) Query {
+func Parse(initfile string) (Query, error) {
 
 	cfg, err := ini.Load(initfile)
 	if err != nil {
-		log.Fatalf("Error opening .ini file in Parse() function: %s", err)
+		log.Printf("Error opening .ini file in Parse() function: %s", err)
+		return Query{}, err
 	}
 
 	querySection := cfg.Section("query")
@@ -83,7 +84,7 @@ func Parse(initfile string) Query {
 		query.Top_results, _ = querySection.Key("top_results").Uint64()
 	}
 
-	return query
+	return query, nil
 }
 
 func PrettyFmt(q *Query) map[string]string {
@@ -232,7 +233,7 @@ func ConvertAndCreateIniFile(filepath string, conversionScriptName string, exten
 	err := cmd.Start()
 	if err != nil {
 		os.Remove(filepath)
-		log.Fatalf("Error starting conversion script (%s) for: %s", conversionScriptName, filepath)
+		log.Printf("Error starting conversion script (%s) for: %s", conversionScriptName, filepath)
 	}
 
 	go func() {
@@ -254,7 +255,7 @@ func CreateIniFile(filepath string, description string) {
 	cmd.Stderr = os.Stderr
 	err := cmd.Start()
 	if err != nil {
-		log.Fatalf("Error starting .ini creation script for: %s", filepath)
+		log.Printf("Error starting .ini creation script for: %s", filepath)
 	}
 
 	go func() {
@@ -279,7 +280,7 @@ func Start(id uuid.UUID, q Query, fOut io.Writer, fLog io.Writer, callback func(
 	err := cmd.Start()
 	if err != nil {
 		callback()
-		log.Fatalf("Error starting query (%s): %s", q, err)
+		log.Printf("Error starting query (%s): %s", q, err)
 	}
 
 	s.RegisterQuery(id, q, cmd.Process)
