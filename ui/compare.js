@@ -768,7 +768,6 @@
         document.getElementById(div_id).innerHTML = '';
 
         try {
-            throw "lul";
             draw_sigma(graph, div_id);
         } catch {
             let spinner_code_element = document.getElementById("spinner_code");
